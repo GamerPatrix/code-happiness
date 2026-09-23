@@ -104,3 +104,49 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# ─────────────────────────────────────────────────────────────
+# Project-specific additions (AiCompanion / code-happiness)
+# ─────────────────────────────────────────────────────────────
+
+# .NET agent host
+[Bb]in/
+[Oo]bj/
+*.nupkg
+TestResults/
+*.TestProj
+
+# Python voice sidecars
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Secrets & local config — never commit
+.env
+.env.*
+!.env.example
+*.pem
+*.pfx
+appsettings.Development.json
+*.local.json
+
+# Large media / model sources stay out of git (use Git LFS if they must be tracked)
+/[Aa]ssets/[Mm]ate/[Mm]odels/
+*.vrm
+*.vmd
+*.pmx
+*.psd
+*.wav
+*.mp3
+# keep authored .ogg clips if you commit them; remove this line to allow
+*.ogg
+
+# OS cruft
+Thumbs.db
+.DS_Store
+Desktop.ini
+ehthumbs.db
