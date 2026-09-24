@@ -254,10 +254,10 @@ code-happiness/
 
 ## 9. Open questions to settle before coding
 
-1. **Character style** — stylised/chibi (recommended) or realistic? Anime/VTuber look (→ VRM route) or generic humanoid (→ FBX/Mixamo)?
-2. **Whose model** — buy an Asset Store pack, commission, or repurpose a VRoid model?
-3. **Voice identity** — free offline Piper voice to start, or is a premium voice (ElevenLabs-class) a launch requirement?
-4. **Wake word** — push-to-talk first (recommended), or hands-free wake word from the start?
+1. **Character style** — user will provide
+2. **Whose model** — user will provide
+3. **Voice identity** — free offline Piper voice to start, and later we will figure something out
+4. **Wake word** — push-to-talk first, hands-free wake word when it fully works
 5. **How much autonomy on day one** — is T3 shell access even wanted early, or is read-only screen-aware assistance enough to prove the idea?
 6. **Is the AI box always on**, and can it host the STT/TTS sidecars too (frees the PC's GPU entirely)?
 7. **Do you want the phone to be "remote eyes"** later (phone camera → vision model)? Cheap, delightful, and it reuses all of M5.
