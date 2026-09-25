@@ -17,6 +17,9 @@ namespace ChatdollKit.Model
         [Tooltip("Keywords used to auto-detect the BlendShape name for 'Blink' when not explicitly specified.")]
         [SerializeField] private string[] blinkKeywords = { "blink", "eye", "close" };
         private int blinkShapeIndex = -1;
+        // Many rigs (ARKit-style) ship only paired eyeBlinkLeft/eyeBlinkRight, which the
+        // exclusion list above rules out. Drive the mirrored partner alongside the primary.
+        private int blinkShapeIndexSecondary = -1;
         [SerializeField] private float minBlinkIntervalToClose = 3.0f;
         [SerializeField] private float maxBlinkIntervalToClose = 5.0f;
         [SerializeField] private float minBlinkIntervalToOpen = 0.05f;
@@ -84,6 +87,7 @@ namespace ChatdollKit.Model
             }
 
             blinkShapeIndex = skinnedMeshRenderer.sharedMesh.GetBlendShapeIndex(blinkBlendShapeName);
+            blinkShapeIndexSecondary = GetMirroredShapeIndex(skinnedMeshRenderer, blinkBlendShapeName);
             if (blinkShapeIndex == -1)
             {
                 Debug.LogWarning($"BlendShape for the name not found: {blinkBlendShapeName}");
@@ -115,7 +119,50 @@ namespace ChatdollKit.Model
                 }
             }
 
+            // Rigs that only ship mirrored shapes (eyeBlinkLeft/eyeBlinkRight) have no
+            // unexcluded candidate, so accept the first paired one and blink both sides.
+            for (var i = 0; i < mesh.blendShapeCount; i++)
+            {
+                var shapeName = mesh.GetBlendShapeName(i);
+                var shapeNameLower = shapeName.ToLower();
+                if (blinkKeywords.Any(keyword => !string.IsNullOrEmpty(keyword) && shapeNameLower.Contains(keyword))
+                    && ExcludeBlinkKeywords.Any(keyword => shapeNameLower.Contains(keyword)))
+                {
+                    return shapeName;
+                }
+            }
+
             return string.Empty;
+        }
+
+        // Returns the index of the left/right counterpart of shapeName, or -1 when the rig
+        // has no mirrored shape to keep in step with the primary one.
+        private static int GetMirroredShapeIndex(SkinnedMeshRenderer skinnedMeshRenderer, string shapeName)
+        {
+            var mesh = skinnedMeshRenderer.sharedMesh;
+            if (mesh == null || string.IsNullOrEmpty(shapeName))
+            {
+                return -1;
+            }
+
+            string mirroredName;
+            if (shapeName.EndsWith("Left"))
+            {
+                mirroredName = shapeName.Substring(0, shapeName.Length - "Left".Length) + "Right";
+            }
+            else if (shapeName.EndsWith("Right"))
+            {
+                mirroredName = shapeName.Substring(0, shapeName.Length - "Right".Length) + "Left";
+            }
+            else
+            {
+                return -1;
+            }
+
+            var mirroredIndex = mesh.GetBlendShapeIndex(mirroredName);
+            return mirroredIndex == skinnedMeshRenderer.sharedMesh.GetBlendShapeIndex(shapeName)
+                ? -1
+                : mirroredIndex;
         }
 
         // Initialize and start blink
@@ -140,6 +187,10 @@ namespace ChatdollKit.Model
 
             // Open the eyes
             skinnedMeshRenderer.SetBlendShapeWeight(blinkShapeIndex, 0);
+            if (blinkShapeIndexSecondary != -1)
+            {
+                skinnedMeshRenderer.SetBlendShapeWeight(blinkShapeIndexSecondary, 0);
+            }
 
             // Enable blink
             IsBlinkEnabled = true;
@@ -171,6 +222,10 @@ namespace ChatdollKit.Model
         {
             IsBlinkEnabled = false;
             skinnedMeshRenderer.SetBlendShapeWeight(blinkShapeIndex, 0);
+            if (blinkShapeIndexSecondary != -1)
+            {
+                skinnedMeshRenderer.SetBlendShapeWeight(blinkShapeIndexSecondary, 0);
+            }
         }
 
         // Action for closing eyes called on every updates
@@ -182,6 +237,10 @@ namespace ChatdollKit.Model
             }
             blinkWeight = Mathf.SmoothDamp(blinkWeight, 1, ref blinkVelocity, blinkTransitionToClose);
             skinnedMeshRenderer.SetBlendShapeWeight(blinkShapeIndex, blinkWeight * 100);
+            if (blinkShapeIndexSecondary != -1)
+            {
+                skinnedMeshRenderer.SetBlendShapeWeight(blinkShapeIndexSecondary, blinkWeight * 100);
+            }
         }
 
         // Action for opening eyes called on every updates
@@ -193,6 +252,10 @@ namespace ChatdollKit.Model
             }
             blinkWeight = Mathf.SmoothDamp(blinkWeight, 0, ref blinkVelocity, blinkTransitionToOpen);
             skinnedMeshRenderer.SetBlendShapeWeight(blinkShapeIndex, blinkWeight * 100);
+            if (blinkShapeIndexSecondary != -1)
+            {
+                skinnedMeshRenderer.SetBlendShapeWeight(blinkShapeIndexSecondary, blinkWeight * 100);
+            }
         }
     }
 }

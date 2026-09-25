@@ -1,0 +1,963 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d1ab6b7ff01e408f9f928f01c6ed18f, type: 3}
+  m_Name: Faces-AICompanion
+  m_EditorClassIdentifier: ChatdollKit::ChatdollKit.Model.FaceClipConfiguration
+  FaceClips:
+  - Name: Neutral
+    Values:
+    - Name: eyeBlinkLeft
+      Index: 0
+      Weight: 0
+    - Name: eyeBlinkRight
+      Index: 1
+      Weight: 0
+    - Name: eyeLookDownLeft
+      Index: 2
+      Weight: 0
+    - Name: eyeLookDownRight
+      Index: 3
+      Weight: 0
+    - Name: eyeLookInLeft
+      Index: 4
+      Weight: 0
+    - Name: eyeLookInRight
+      Index: 5
+      Weight: 0
+    - Name: eyeLookOutLeft
+      Index: 6
+      Weight: 0
+    - Name: eyeLookOutRight
+      Index: 7
+      Weight: 0
+    - Name: eyeSquintLeft
+      Index: 8
+      Weight: 0
+    - Name: eyeSquintRight
+      Index: 9
+      Weight: 0
+    - Name: eyeWideLeft
+      Index: 10
+      Weight: 0
+    - Name: eyeWideRight
+      Index: 11
+      Weight: 0
+    - Name: eyeLookUpLeft
+      Index: 12
+      Weight: 0
+    - Name: eyeLookUpRight
+      Index: 13
+      Weight: 0
+    - Name: jawForward
+      Index: 14
+      Weight: 0
+    - Name: jawLeft
+      Index: 15
+      Weight: 0
+    - Name: jawRight
+      Index: 16
+      Weight: 0
+    - Name: mouthFunnel
+      Index: 17
+      Weight: 0
+    - Name: mouthPucker
+      Index: 18
+      Weight: 0
+    - Name: mouthRight
+      Index: 19
+      Weight: 0
+    - Name: mouthLeft
+      Index: 20
+      Weight: 0
+    - Name: mouthSmileLeft
+      Index: 21
+      Weight: 0
+    - Name: mouthSmileRight
+      Index: 22
+      Weight: 0
+    - Name: mouthFrownRight
+      Index: 23
+      Weight: 0
+    - Name: mouthFrownLeft
+      Index: 24
+      Weight: 0
+    - Name: mouthDimpleLeft
+      Index: 25
+      Weight: 0
+    - Name: mouthDimpleRight
+      Index: 26
+      Weight: 0
+    - Name: mouthStretchLeft
+      Index: 27
+      Weight: 0
+    - Name: mouthStretchRight
+      Index: 28
+      Weight: 0
+    - Name: mouthRollLower
+      Index: 29
+      Weight: 0
+    - Name: mouthRollUpper
+      Index: 30
+      Weight: 0
+    - Name: mouthShrugLower
+      Index: 31
+      Weight: 0
+    - Name: mouthShrugUpper
+      Index: 32
+      Weight: 0
+    - Name: mouthPressLeft
+      Index: 33
+      Weight: 0
+    - Name: mouthPressRight
+      Index: 34
+      Weight: 0
+    - Name: mouthLowerDownLeft
+      Index: 35
+      Weight: 0
+    - Name: mouthLowerDownRight
+      Index: 36
+      Weight: 0
+    - Name: mouthUpperUpLeft
+      Index: 37
+      Weight: 0
+    - Name: mouthUpperUpRight
+      Index: 38
+      Weight: 0
+    - Name: browDownLeft
+      Index: 39
+      Weight: 0
+    - Name: browDownRight
+      Index: 40
+      Weight: 0
+    - Name: browInnerUp
+      Index: 41
+      Weight: 0
+    - Name: browOuterUpLeft
+      Index: 42
+      Weight: 0
+    - Name: browOuterUpRight
+      Index: 43
+      Weight: 0
+    - Name: cheekPuff
+      Index: 44
+      Weight: 0
+    - Name: cheekSquintLeft
+      Index: 45
+      Weight: 0
+    - Name: cheekSquintRight
+      Index: 46
+      Weight: 0
+    - Name: noseSneerLeft
+      Index: 47
+      Weight: 0
+    - Name: noseSneerRight
+      Index: 48
+      Weight: 0
+    - Name: jawOpen
+      Index: 49
+      Weight: 0
+    - Name: mouthClose
+      Index: 50
+      Weight: 0
+    - Name: earsElf
+      Index: 51
+      Weight: 0
+  - Name: Blink
+    Values:
+    - Name: eyeBlinkLeft
+      Index: 0
+      Weight: 100
+    - Name: eyeBlinkRight
+      Index: 1
+      Weight: 100
+    - Name: eyeLookDownLeft
+      Index: 2
+      Weight: 0
+    - Name: eyeLookDownRight
+      Index: 3
+      Weight: 0
+    - Name: eyeLookInLeft
+      Index: 4
+      Weight: 0
+    - Name: eyeLookInRight
+      Index: 5
+      Weight: 0
+    - Name: eyeLookOutLeft
+      Index: 6
+      Weight: 0
+    - Name: eyeLookOutRight
+      Index: 7
+      Weight: 0
+    - Name: eyeSquintLeft
+      Index: 8
+      Weight: 0
+    - Name: eyeSquintRight
+      Index: 9
+      Weight: 0
+    - Name: eyeWideLeft
+      Index: 10
+      Weight: 0
+    - Name: eyeWideRight
+      Index: 11
+      Weight: 0
+    - Name: eyeLookUpLeft
+      Index: 12
+      Weight: 0
+    - Name: eyeLookUpRight
+      Index: 13
+      Weight: 0
+    - Name: jawForward
+      Index: 14
+      Weight: 0
+    - Name: jawLeft
+      Index: 15
+      Weight: 0
+    - Name: jawRight
+      Index: 16
+      Weight: 0
+    - Name: mouthFunnel
+      Index: 17
+      Weight: 0
+    - Name: mouthPucker
+      Index: 18
+      Weight: 0
+    - Name: mouthRight
+      Index: 19
+      Weight: 0
+    - Name: mouthLeft
+      Index: 20
+      Weight: 0
+    - Name: mouthSmileLeft
+      Index: 21
+      Weight: 0
+    - Name: mouthSmileRight
+      Index: 22
+      Weight: 0
+    - Name: mouthFrownRight
+      Index: 23
+      Weight: 0
+    - Name: mouthFrownLeft
+      Index: 24
+      Weight: 0
+    - Name: mouthDimpleLeft
+      Index: 25
+      Weight: 0
+    - Name: mouthDimpleRight
+      Index: 26
+      Weight: 0
+    - Name: mouthStretchLeft
+      Index: 27
+      Weight: 0
+    - Name: mouthStretchRight
+      Index: 28
+      Weight: 0
+    - Name: mouthRollLower
+      Index: 29
+      Weight: 0
+    - Name: mouthRollUpper
+      Index: 30
+      Weight: 0
+    - Name: mouthShrugLower
+      Index: 31
+      Weight: 0
+    - Name: mouthShrugUpper
+      Index: 32
+      Weight: 0
+    - Name: mouthPressLeft
+      Index: 33
+      Weight: 0
+    - Name: mouthPressRight
+      Index: 34
+      Weight: 0
+    - Name: mouthLowerDownLeft
+      Index: 35
+      Weight: 0
+    - Name: mouthLowerDownRight
+      Index: 36
+      Weight: 0
+    - Name: mouthUpperUpLeft
+      Index: 37
+      Weight: 0
+    - Name: mouthUpperUpRight
+      Index: 38
+      Weight: 0
+    - Name: browDownLeft
+      Index: 39
+      Weight: 0
+    - Name: browDownRight
+      Index: 40
+      Weight: 0
+    - Name: browInnerUp
+      Index: 41
+      Weight: 0
+    - Name: browOuterUpLeft
+      Index: 42
+      Weight: 0
+    - Name: browOuterUpRight
+      Index: 43
+      Weight: 0
+    - Name: cheekPuff
+      Index: 44
+      Weight: 0
+    - Name: cheekSquintLeft
+      Index: 45
+      Weight: 0
+    - Name: cheekSquintRight
+      Index: 46
+      Weight: 0
+    - Name: noseSneerLeft
+      Index: 47
+      Weight: 0
+    - Name: noseSneerRight
+      Index: 48
+      Weight: 0
+    - Name: jawOpen
+      Index: 49
+      Weight: 0
+    - Name: mouthClose
+      Index: 50
+      Weight: 0
+    - Name: earsElf
+      Index: 51
+      Weight: 0
+  - Name: Joy
+    Values:
+    - Name: eyeBlinkLeft
+      Index: 0
+      Weight: 0
+    - Name: eyeBlinkRight
+      Index: 1
+      Weight: 0
+    - Name: eyeLookDownLeft
+      Index: 2
+      Weight: 0
+    - Name: eyeLookDownRight
+      Index: 3
+      Weight: 0
+    - Name: eyeLookInLeft
+      Index: 4
+      Weight: 0
+    - Name: eyeLookInRight
+      Index: 5
+      Weight: 0
+    - Name: eyeLookOutLeft
+      Index: 6
+      Weight: 0
+    - Name: eyeLookOutRight
+      Index: 7
+      Weight: 0
+    - Name: eyeSquintLeft
+      Index: 8
+      Weight: 0
+    - Name: eyeSquintRight
+      Index: 9
+      Weight: 0
+    - Name: eyeWideLeft
+      Index: 10
+      Weight: 0
+    - Name: eyeWideRight
+      Index: 11
+      Weight: 0
+    - Name: eyeLookUpLeft
+      Index: 12
+      Weight: 0
+    - Name: eyeLookUpRight
+      Index: 13
+      Weight: 0
+    - Name: jawForward
+      Index: 14
+      Weight: 0
+    - Name: jawLeft
+      Index: 15
+      Weight: 0
+    - Name: jawRight
+      Index: 16
+      Weight: 0
+    - Name: mouthFunnel
+      Index: 17
+      Weight: 0
+    - Name: mouthPucker
+      Index: 18
+      Weight: 0
+    - Name: mouthRight
+      Index: 19
+      Weight: 0
+    - Name: mouthLeft
+      Index: 20
+      Weight: 0
+    - Name: mouthSmileLeft
+      Index: 21
+      Weight: 80
+    - Name: mouthSmileRight
+      Index: 22
+      Weight: 80
+    - Name: mouthFrownRight
+      Index: 23
+      Weight: 0
+    - Name: mouthFrownLeft
+      Index: 24
+      Weight: 0
+    - Name: mouthDimpleLeft
+      Index: 25
+      Weight: 0
+    - Name: mouthDimpleRight
+      Index: 26
+      Weight: 0
+    - Name: mouthStretchLeft
+      Index: 27
+      Weight: 0
+    - Name: mouthStretchRight
+      Index: 28
+      Weight: 0
+    - Name: mouthRollLower
+      Index: 29
+      Weight: 0
+    - Name: mouthRollUpper
+      Index: 30
+      Weight: 0
+    - Name: mouthShrugLower
+      Index: 31
+      Weight: 0
+    - Name: mouthShrugUpper
+      Index: 32
+      Weight: 0
+    - Name: mouthPressLeft
+      Index: 33
+      Weight: 0
+    - Name: mouthPressRight
+      Index: 34
+      Weight: 0
+    - Name: mouthLowerDownLeft
+      Index: 35
+      Weight: 0
+    - Name: mouthLowerDownRight
+      Index: 36
+      Weight: 0
+    - Name: mouthUpperUpLeft
+      Index: 37
+      Weight: 0
+    - Name: mouthUpperUpRight
+      Index: 38
+      Weight: 0
+    - Name: browDownLeft
+      Index: 39
+      Weight: 0
+    - Name: browDownRight
+      Index: 40
+      Weight: 0
+    - Name: browInnerUp
+      Index: 41
+      Weight: 0
+    - Name: browOuterUpLeft
+      Index: 42
+      Weight: 20
+    - Name: browOuterUpRight
+      Index: 43
+      Weight: 20
+    - Name: cheekPuff
+      Index: 44
+      Weight: 0
+    - Name: cheekSquintLeft
+      Index: 45
+      Weight: 45
+    - Name: cheekSquintRight
+      Index: 46
+      Weight: 45
+    - Name: noseSneerLeft
+      Index: 47
+      Weight: 0
+    - Name: noseSneerRight
+      Index: 48
+      Weight: 0
+    - Name: jawOpen
+      Index: 49
+      Weight: 0
+    - Name: mouthClose
+      Index: 50
+      Weight: 0
+    - Name: earsElf
+      Index: 51
+      Weight: 0
+  - Name: Angry
+    Values:
+    - Name: eyeBlinkLeft
+      Index: 0
+      Weight: 0
+    - Name: eyeBlinkRight
+      Index: 1
+      Weight: 0
+    - Name: eyeLookDownLeft
+      Index: 2
+      Weight: 0
+    - Name: eyeLookDownRight
+      Index: 3
+      Weight: 0
+    - Name: eyeLookInLeft
+      Index: 4
+      Weight: 0
+    - Name: eyeLookInRight
+      Index: 5
+      Weight: 0
+    - Name: eyeLookOutLeft
+      Index: 6
+      Weight: 0
+    - Name: eyeLookOutRight
+      Index: 7
+      Weight: 0
+    - Name: eyeSquintLeft
+      Index: 8
+      Weight: 0
+    - Name: eyeSquintRight
+      Index: 9
+      Weight: 0
+    - Name: eyeWideLeft
+      Index: 10
+      Weight: 0
+    - Name: eyeWideRight
+      Index: 11
+      Weight: 0
+    - Name: eyeLookUpLeft
+      Index: 12
+      Weight: 0
+    - Name: eyeLookUpRight
+      Index: 13
+      Weight: 0
+    - Name: jawForward
+      Index: 14
+      Weight: 0
+    - Name: jawLeft
+      Index: 15
+      Weight: 0
+    - Name: jawRight
+      Index: 16
+      Weight: 0
+    - Name: mouthFunnel
+      Index: 17
+      Weight: 0
+    - Name: mouthPucker
+      Index: 18
+      Weight: 0
+    - Name: mouthRight
+      Index: 19
+      Weight: 0
+    - Name: mouthLeft
+      Index: 20
+      Weight: 0
+    - Name: mouthSmileLeft
+      Index: 21
+      Weight: 0
+    - Name: mouthSmileRight
+      Index: 22
+      Weight: 0
+    - Name: mouthFrownRight
+      Index: 23
+      Weight: 0
+    - Name: mouthFrownLeft
+      Index: 24
+      Weight: 0
+    - Name: mouthDimpleLeft
+      Index: 25
+      Weight: 0
+    - Name: mouthDimpleRight
+      Index: 26
+      Weight: 0
+    - Name: mouthStretchLeft
+      Index: 27
+      Weight: 0
+    - Name: mouthStretchRight
+      Index: 28
+      Weight: 0
+    - Name: mouthRollLower
+      Index: 29
+      Weight: 0
+    - Name: mouthRollUpper
+      Index: 30
+      Weight: 0
+    - Name: mouthShrugLower
+      Index: 31
+      Weight: 0
+    - Name: mouthShrugUpper
+      Index: 32
+      Weight: 0
+    - Name: mouthPressLeft
+      Index: 33
+      Weight: 35
+    - Name: mouthPressRight
+      Index: 34
+      Weight: 35
+    - Name: mouthLowerDownLeft
+      Index: 35
+      Weight: 0
+    - Name: mouthLowerDownRight
+      Index: 36
+      Weight: 0
+    - Name: mouthUpperUpLeft
+      Index: 37
+      Weight: 0
+    - Name: mouthUpperUpRight
+      Index: 38
+      Weight: 0
+    - Name: browDownLeft
+      Index: 39
+      Weight: 85
+    - Name: browDownRight
+      Index: 40
+      Weight: 85
+    - Name: browInnerUp
+      Index: 41
+      Weight: 0
+    - Name: browOuterUpLeft
+      Index: 42
+      Weight: 0
+    - Name: browOuterUpRight
+      Index: 43
+      Weight: 0
+    - Name: cheekPuff
+      Index: 44
+      Weight: 0
+    - Name: cheekSquintLeft
+      Index: 45
+      Weight: 0
+    - Name: cheekSquintRight
+      Index: 46
+      Weight: 0
+    - Name: noseSneerLeft
+      Index: 47
+      Weight: 25
+    - Name: noseSneerRight
+      Index: 48
+      Weight: 25
+    - Name: jawOpen
+      Index: 49
+      Weight: 0
+    - Name: mouthClose
+      Index: 50
+      Weight: 0
+    - Name: earsElf
+      Index: 51
+      Weight: 0
+  - Name: Sorrow
+    Values:
+    - Name: eyeBlinkLeft
+      Index: 0
+      Weight: 0
+    - Name: eyeBlinkRight
+      Index: 1
+      Weight: 0
+    - Name: eyeLookDownLeft
+      Index: 2
+      Weight: 0
+    - Name: eyeLookDownRight
+      Index: 3
+      Weight: 0
+    - Name: eyeLookInLeft
+      Index: 4
+      Weight: 0
+    - Name: eyeLookInRight
+      Index: 5
+      Weight: 0
+    - Name: eyeLookOutLeft
+      Index: 6
+      Weight: 0
+    - Name: eyeLookOutRight
+      Index: 7
+      Weight: 0
+    - Name: eyeSquintLeft
+      Index: 8
+      Weight: 0
+    - Name: eyeSquintRight
+      Index: 9
+      Weight: 0
+    - Name: eyeWideLeft
+      Index: 10
+      Weight: 0
+    - Name: eyeWideRight
+      Index: 11
+      Weight: 0
+    - Name: eyeLookUpLeft
+      Index: 12
+      Weight: 0
+    - Name: eyeLookUpRight
+      Index: 13
+      Weight: 0
+    - Name: jawForward
+      Index: 14
+      Weight: 0
+    - Name: jawLeft
+      Index: 15
+      Weight: 0
+    - Name: jawRight
+      Index: 16
+      Weight: 0
+    - Name: mouthFunnel
+      Index: 17
+      Weight: 0
+    - Name: mouthPucker
+      Index: 18
+      Weight: 0
+    - Name: mouthRight
+      Index: 19
+      Weight: 0
+    - Name: mouthLeft
+      Index: 20
+      Weight: 0
+    - Name: mouthSmileLeft
+      Index: 21
+      Weight: 0
+    - Name: mouthSmileRight
+      Index: 22
+      Weight: 0
+    - Name: mouthFrownRight
+      Index: 23
+      Weight: 60
+    - Name: mouthFrownLeft
+      Index: 24
+      Weight: 60
+    - Name: mouthDimpleLeft
+      Index: 25
+      Weight: 0
+    - Name: mouthDimpleRight
+      Index: 26
+      Weight: 0
+    - Name: mouthStretchLeft
+      Index: 27
+      Weight: 0
+    - Name: mouthStretchRight
+      Index: 28
+      Weight: 0
+    - Name: mouthRollLower
+      Index: 29
+      Weight: 0
+    - Name: mouthRollUpper
+      Index: 30
+      Weight: 0
+    - Name: mouthShrugLower
+      Index: 31
+      Weight: 35
+    - Name: mouthShrugUpper
+      Index: 32
+      Weight: 0
+    - Name: mouthPressLeft
+      Index: 33
+      Weight: 0
+    - Name: mouthPressRight
+      Index: 34
+      Weight: 0
+    - Name: mouthLowerDownLeft
+      Index: 35
+      Weight: 0
+    - Name: mouthLowerDownRight
+      Index: 36
+      Weight: 0
+    - Name: mouthUpperUpLeft
+      Index: 37
+      Weight: 0
+    - Name: mouthUpperUpRight
+      Index: 38
+      Weight: 0
+    - Name: browDownLeft
+      Index: 39
+      Weight: 0
+    - Name: browDownRight
+      Index: 40
+      Weight: 0
+    - Name: browInnerUp
+      Index: 41
+      Weight: 85
+    - Name: browOuterUpLeft
+      Index: 42
+      Weight: 30
+    - Name: browOuterUpRight
+      Index: 43
+      Weight: 30
+    - Name: cheekPuff
+      Index: 44
+      Weight: 0
+    - Name: cheekSquintLeft
+      Index: 45
+      Weight: 0
+    - Name: cheekSquintRight
+      Index: 46
+      Weight: 0
+    - Name: noseSneerLeft
+      Index: 47
+      Weight: 0
+    - Name: noseSneerRight
+      Index: 48
+      Weight: 0
+    - Name: jawOpen
+      Index: 49
+      Weight: 0
+    - Name: mouthClose
+      Index: 50
+      Weight: 0
+    - Name: earsElf
+      Index: 51
+      Weight: 0
+  - Name: Fun
+    Values:
+    - Name: eyeBlinkLeft
+      Index: 0
+      Weight: 0
+    - Name: eyeBlinkRight
+      Index: 1
+      Weight: 0
+    - Name: eyeLookDownLeft
+      Index: 2
+      Weight: 0
+    - Name: eyeLookDownRight
+      Index: 3
+      Weight: 0
+    - Name: eyeLookInLeft
+      Index: 4
+      Weight: 0
+    - Name: eyeLookInRight
+      Index: 5
+      Weight: 0
+    - Name: eyeLookOutLeft
+      Index: 6
+      Weight: 0
+    - Name: eyeLookOutRight
+      Index: 7
+      Weight: 0
+    - Name: eyeSquintLeft
+      Index: 8
+      Weight: 0
+    - Name: eyeSquintRight
+      Index: 9
+      Weight: 0
+    - Name: eyeWideLeft
+      Index: 10
+      Weight: 0
+    - Name: eyeWideRight
+      Index: 11
+      Weight: 0
+    - Name: eyeLookUpLeft
+      Index: 12
+      Weight: 0
+    - Name: eyeLookUpRight
+      Index: 13
+      Weight: 0
+    - Name: jawForward
+      Index: 14
+      Weight: 0
+    - Name: jawLeft
+      Index: 15
+      Weight: 0
+    - Name: jawRight
+      Index: 16
+      Weight: 0
+    - Name: mouthFunnel
+      Index: 17
+      Weight: 0
+    - Name: mouthPucker
+      Index: 18
+      Weight: 0
+    - Name: mouthRight
+      Index: 19
+      Weight: 0
+    - Name: mouthLeft
+      Index: 20
+      Weight: 0
+    - Name: mouthSmileLeft
+      Index: 21
+      Weight: 55
+    - Name: mouthSmileRight
+      Index: 22
+      Weight: 55
+    - Name: mouthFrownRight
+      Index: 23
+      Weight: 0
+    - Name: mouthFrownLeft
+      Index: 24
+      Weight: 0
+    - Name: mouthDimpleLeft
+      Index: 25
+      Weight: 0
+    - Name: mouthDimpleRight
+      Index: 26
+      Weight: 0
+    - Name: mouthStretchLeft
+      Index: 27
+      Weight: 0
+    - Name: mouthStretchRight
+      Index: 28
+      Weight: 0
+    - Name: mouthRollLower
+      Index: 29
+      Weight: 0
+    - Name: mouthRollUpper
+      Index: 30
+      Weight: 0
+    - Name: mouthShrugLower
+      Index: 31
+      Weight: 0
+    - Name: mouthShrugUpper
+      Index: 32
+      Weight: 0
+    - Name: mouthPressLeft
+      Index: 33
+      Weight: 0
+    - Name: mouthPressRight
+      Index: 34
+      Weight: 0
+    - Name: mouthLowerDownLeft
+      Index: 35
+      Weight: 0
+    - Name: mouthLowerDownRight
+      Index: 36
+      Weight: 0
+    - Name: mouthUpperUpLeft
+      Index: 37
+      Weight: 0
+    - Name: mouthUpperUpRight
+      Index: 38
+      Weight: 0
+    - Name: browDownLeft
+      Index: 39
+      Weight: 0
+    - Name: browDownRight
+      Index: 40
+      Weight: 0
+    - Name: browInnerUp
+      Index: 41
+      Weight: 0
+    - Name: browOuterUpLeft
+      Index: 42
+      Weight: 0
+    - Name: browOuterUpRight
+      Index: 43
+      Weight: 0
+    - Name: cheekPuff
+      Index: 44
+      Weight: 0
+    - Name: cheekSquintLeft
+      Index: 45
+      Weight: 30
+    - Name: cheekSquintRight
+      Index: 46
+      Weight: 30
+    - Name: noseSneerLeft
+      Index: 47
+      Weight: 0
+    - Name: noseSneerRight
+      Index: 48
+      Weight: 0
+    - Name: jawOpen
+      Index: 49
+      Weight: 55
+    - Name: mouthClose
+      Index: 50
+      Weight: 0
+    - Name: earsElf
+      Index: 51
+      Weight: 0
