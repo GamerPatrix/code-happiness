@@ -150,3 +150,6 @@ Thumbs.db
 .DS_Store
 Desktop.ini
 ehthumbs.db
+
+# Throwaway C# probes driven by `unity command run_script` - not part of the game build
+/[Aa]gentScripts/

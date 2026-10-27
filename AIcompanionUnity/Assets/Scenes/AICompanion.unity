@@ -136,6 +136,10 @@ PrefabInstance:
       propertyPath: LLMContentProcessor
       value: 
       objectReference: {fileID: 176353614}
+    - target: {fileID: 580097151081313993, guid: b26b8373a60fd423baecd5814d97a9cb, type: 3}
+      propertyPath: CharacterMessageWindow
+      value: 
+      objectReference: {fileID: 2084398934}
     - target: {fileID: 3429620897720333282, guid: b26b8373a60fd423baecd5814d97a9cb, type: 3}
       propertyPath: m_Name
       value: AICompanion
@@ -230,6 +234,7 @@ PrefabInstance:
       objectReference: {fileID: 1115829110}
     m_RemovedComponents:
     - {fileID: 6056985643406791538, guid: b26b8373a60fd423baecd5814d97a9cb, type: 3}
+    - {fileID: 1499668613964136588, guid: b26b8373a60fd423baecd5814d97a9cb, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4011437065312461287, guid: b26b8373a60fd423baecd5814d97a9cb, type: 3}
@@ -248,6 +253,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3429620897720333282, guid: b26b8373a60fd423baecd5814d97a9cb, type: 3}
       insertIndex: -1
       addedObject: {fileID: 176353621}
+    - targetCorrespondingSourceObject: {fileID: 3429620897720333282, guid: b26b8373a60fd423baecd5814d97a9cb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 176353632}
+    - targetCorrespondingSourceObject: {fileID: 4823998119620831663, guid: b26b8373a60fd423baecd5814d97a9cb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2084398934}
   m_SourcePrefab: {fileID: 100100000, guid: b26b8373a60fd423baecd5814d97a9cb, type: 3}
 --- !u!1 &176353604 stripped
 GameObject:
@@ -274,12 +285,12 @@ MonoBehaviour:
   contextTimeout: 600
   ApiKey: local-noauth
   Model: qwen3.8-flash-next
-  ChatCompletionUrl: http://192.168.1.5:8000/v1/chat/completions
+  ChatCompletionUrl: http://192.168.1.5:8888/v1/chat/completions
   IsAzure: 0
   IsOpenAICompatibleAPI: 1
   MaxTokens: 1024
   Temperature: 0.7
-  ReasoningEffort: 
+  ReasoningEffort: none
   FrequencyPenalty: 0
   Logprobs: 0
   TopLogprobs: 0
@@ -339,6 +350,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6db7ca8dec61a4a398f308aeb3f27c2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: ChatdollKit::ChatdollKit.SpeechListener.DummyMicrophoneManager
+--- !u!114 &176353632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176353604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e02b8b5fbb053a942a26a949f0e260b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AICompanion.DummySpeechSynthesizer
 --- !u!1 &365511306
 GameObject:
   m_ObjectHideFlags: 0
@@ -589,6 +612,10 @@ PrefabInstance:
     - target: {fileID: 1494073629974247973, guid: 1d5e19274a5fe3b4dadb2abaab469404, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1851624190445896182, guid: 1d5e19274a5fe3b4dadb2abaab469404, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.size
+      value: 52
       objectReference: {fileID: 0}
     - target: {fileID: 2430354562236907188, guid: 1d5e19274a5fe3b4dadb2abaab469404, type: 3}
       propertyPath: m_Name
@@ -1225,6 +1252,17 @@ SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 1851624190445896182, guid: 1d5e19274a5fe3b4dadb2abaab469404, type: 3}
   m_PrefabInstance: {fileID: 857322969}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1537803462 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 459631627400362889, guid: b26b8373a60fd423baecd5814d97a9cb, type: 3}
+  m_PrefabInstance: {fileID: 176353603}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1698961986
 GameObject:
   m_ObjectHideFlags: 0
@@ -1542,6 +1580,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1884934928}
   m_CullTransparentMesh: 1
+--- !u!1 &2084398929 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4823998119620831663, guid: b26b8373a60fd423baecd5814d97a9cb, type: 3}
+  m_PrefabInstance: {fileID: 176353603}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2084398934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2084398929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4a8c01ecdecb8f478b63cdb86d93ecd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AICompanion.PersistentSimpleMessageWindow
+  IsInstance: 1
+  messageText: {fileID: 1537803462}
+  MessageSpeed: 0.03
+  PreGap: 0.1
+  PostGap: 0.7
+  autoHide: 0
+  IsTextAnimated: 1
+  KeepLastMessage: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
