@@ -1,1 +1,3 @@
-Use when the avatar swings a bat or hits something with a big overarm swing.
+﻿Use when the avatar swings a bat or hits something with a big overarm swing.
+#next=Female Standing Pose
+

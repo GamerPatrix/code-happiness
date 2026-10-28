@@ -300,94 +300,148 @@ MonoBehaviour:
     - The tag is not spoken, so do not read
     it out or explain it.
 
-    
+
 
     Your animations:
 
-    - A_Idle_F: Neutral
-    relaxed standing idle. Use it as the resting pose when nothing else fits.
+    - Aiming Gun: Use when the
+    avatar aims or holds a gun, or is pretending to shoot at something. (animation,
+    ~2.4s) ends in Female Standing Pose
 
-    -
-    Aiming Gun: Use when the avatar aims or holds a gun, or is pretending to shoot
-    at something.
+    - Angry: Use while the avatar is angry,
+    annoyed or arguing. Standing, tense, confrontational. (animation, ~19.2s) ends
+    in Female Standing Pose
 
-    - Angry: Use while the avatar is angry, annoyed or arguing.
-    Standing, tense, confrontational.
+    - A_Pose_Vex: Plays a short expressive full body
+    pose, good when the avatar is showing off or striking a pose while talking. (animation,
+    ~6.3s) ends in Female Standing Pose
 
-    - A_Pose_Vex: Plays a short expressive
-    full body pose, good when the avatar is showing off or striking a pose while
-    talking.
-
-    - Baseball Hit: Use when the avatar swings a bat or hits something
-    with a big overarm swing.
+    - Baseball Hit: Use when the avatar
+    swings a bat or hits something with a big overarm swing. (animation, ~3.9s) ends
+    in Female Standing Pose
 
     - Defeated: Use when the avatar has lost, failed
-    or given up. Slumps down in defeat.
+    or given up. Slumps down in defeat. (animation, ~6.7s) ends in Female Laying
+    Pose
 
-    - Excited: Use when the avatar is excited,
-    thrilled or celebrating good news. Big energetic full body motion.
-
-    - Female
-    Laying Pose: Use when the avatar is lying down on the ground, resting or relaxing
-    on their back.
-
-    - Female Laying Pose (1): Use when the avatar is lying down
-    on the ground in a second resting variation.
-
-    - Female Sitting Pose: Use
-    when the avatar is sitting down on a chair or the floor and holding still.
+    - Excited: Use when the avatar is excited, thrilled or celebrating
+    good news. Big energetic full body motion. (animation, ~13.1s, 2 loops)
 
     -
-    Female Sitting Pose (1): Use when the avatar is sitting down in a second seated
-    variation.
+    Look Around: Use when the avatar is searching, curious, or scanning the room
+    and turning their head side to side. (animation, ~4.5s) ends in Female Standing
+    Pose
 
-    - Female Sitting Pose (2): Use when the avatar is sitting down
-    in a third seated variation.
+    - Sitting And Pointing: Use when the avatar is seated and pointing
+    at someone or something to draw attention to it. (animation, ~3.0s) ends in Female
+    Sitting Pose
 
-    - Female Standing Pose: Use when the avatar
-    is standing still in a relaxed casual pose.
+    - Sitting Angry: Use while the seated avatar is angry or irritated.
+    (animation, ~2.8s)
 
-    - Female Standing Pose (1):
-    Use when the avatar is standing still in a second relaxed casual pose.
+    - Sitting Clap: Use when the seated avatar applauds
+    or claps along to something. (animation, ~11.3s, 2 loops) ends in Female Sitting
+    Pose
 
-    -
-    Female Standing Pose (2): Use when the avatar is standing still in a third relaxed
-    casual pose.
-
-    - Female Standing Pose (3): Use when the avatar is standing
-    still in a fourth relaxed casual pose.
-
-    - Look Around: Use when the avatar
-    is searching, curious, or scanning the room and turning their head side to side.
-
-    -
-    Sitting And Pointing: Use when the avatar is seated and pointing at someone or
-    something to draw attention to it.
-
-    - Sitting Angry: Use while the seated
-    avatar is angry or irritated.
-
-    - Sitting Clap: Use when the seated avatar
-    applauds or claps along to something.
-
-    - Sitting Clap (1): Use when the
-    seated avatar applauds in a second clapping variation.
-
-    - Sitting Idle:
-    Use when the avatar is sitting and doing nothing in particular. Calm seated idle.
+    - Sitting Clap (1): Use when the seated avatar applauds in a second
+    clapping variation. (animation, ~7.0s, 2 loops) ends in Female Sitting Pose
 
     -
     Sitting Laughing: Use when the seated avatar is laughing hard at a joke or something
-    funny.
+    funny. (animation, ~16.7s, 2 loops)
 
-    - Standing Clap: Use when the avatar applauds or claps while standing.
+    - Standing Clap: Use when the avatar
+    applauds or claps while standing. (animation, ~9.5s, 2 loops) ends in Female
+    Standing Pose
+
+    - Talking On Phone: Use when the avatar is on a phone call,
+    holding a phone to their ear and chatting. (animation, ~38.8s) ends in Female
+    Sitting Pose
+
+    - A_Cheer: Happy celebratory gesture. Use it when the avatar
+    is excited, congratulates the player, or celebrates a win. (animation, ~7.9s,
+    2 loops)
+
+
+    You have a body and can move it. To play one of your animations,
+    write [anim:Name] immediately before the words that the movement should accompany.
+
+    Rules:
 
     -
-    Talking On Phone: Use when the avatar is on a phone call, holding a phone to
-    their ear and chatting.
+    Only use animation names from the list below, spelled exactly as written. Never
+    invent a name.
 
-    - A_Cheer: Happy celebratory gesture. Use it when
-    the avatar is excited, congratulates the player, or celebrates a win.'
+    - Use at most one [anim:Name] per sentence, and only when
+    the movement genuinely fits what you are saying.
+
+    - Saying something without
+    any animation is perfectly fine.
+
+    - The tag is not spoken, so do not read
+    it out or explain it.
+
+
+
+    Your animations:
+
+    - "Aiming Gun": Use when the
+    avatar aims or holds a gun, or is pretending to shoot at something. (animation,
+    ~2.4s) ends in "Female Standing Pose"
+
+    - "Angry": Use while the avatar is
+    angry, annoyed or arguing. Standing, tense, confrontational. (animation, ~19.2s)
+    ends in "Female Standing Pose"
+
+    - "A_Pose_Vex": Plays a short expressive
+    full body pose, good when the avatar is showing off or striking a pose while
+    talking. (animation, ~6.3s) ends in "Female Standing Pose"
+
+    - "Baseball
+    Hit": Use when the avatar swings a bat or hits something with a big overarm swing.
+    (animation, ~3.9s) ends in "Female Standing Pose"
+
+    - "Defeated": Use when
+    the avatar has lost, failed or given up. Slumps down in defeat. (animation, ~6.7s)
+    ends in "Female Laying Pose"
+
+    - "Excited": Use when the avatar is excited,
+    thrilled or celebrating good news. Big energetic full body motion. (animation,
+    ~13.1s, 2 loops)
+
+    - "Look Around": Use when the avatar is searching, curious,
+    or scanning the room and turning their head side to side. (animation, ~4.5s)
+    ends in "Female Standing Pose"
+
+    - "Sitting And Pointing": Use when the avatar
+    is seated and pointing at someone or something to draw attention to it. (animation,
+    ~3.0s) ends in "Female Sitting Pose"
+
+    - "Sitting Angry": Use while the seated
+    avatar is angry or irritated. (animation, ~2.8s)
+
+    - "Sitting Clap": Use
+    when the seated avatar applauds or claps along to something. (animation, ~11.3s,
+    2 loops) ends in "Female Sitting Pose"
+
+    - "Sitting Clap (1)": Use when the
+    seated avatar applauds in a second clapping variation. (animation, ~7.0s, 2 loops)
+    ends in "Female Sitting Pose"
+
+    - "Sitting Laughing": Use when the seated
+    avatar is laughing hard at a joke or something funny. (animation, ~16.7s, 2 loops)
+
+    -
+    "Standing Clap": Use when the avatar applauds or claps while standing. (animation,
+    ~9.5s, 2 loops) ends in "Female Standing Pose"
+
+    - "Talking On Phone": Use
+    when the avatar is on a phone call, holding a phone to their ear and chatting.
+    (animation, ~38.8s) ends in "Female Sitting Pose"
+
+    - "A_Cheer": Happy celebratory
+    gesture. Use it when the avatar is excited, congratulates the player, or celebrates
+    a win. (animation, ~7.9s, 2 loops)'
   ErrorMessageContent: Sorry, I could not reach my AI box right now.
   historyTurns: 100
   contextTimeout: 600
@@ -509,14 +563,37 @@ MonoBehaviour:
     AnimatorLayerName: Base Layer
     IsIdle: 1
     IdleWeight: 1
-    IdleMode: normal
-    SourceAssetPath: Assets/Animations/Avatar/Idle/A_Idle_F.fbx
-    SourceFolder: Assets/Animations/Avatar/Idle
+    IdleMode: Standing
+    IsPose: 0
+    Loops: 1
+    HoldSeconds: 0
+    NextAnimationName: 
+    SourceAssetPath: Assets/Animations/Avatar/Idle/Standing/A_Idle_F.fbx
+    SourceFolder: Assets/Animations/Avatar/Idle/Standing
+  - Name: Sitting Idle
+    Description: Use when the avatar is sitting and doing nothing in particular.
+      Calm seated idle.
+    ParameterKey: BaseParam
+    ParameterValue: 1
+    Duration: 6.4000006
+    LayeredAnimationName: 
+    LayeredAnimationLayerName: 
+    AnimatorStateName: Sitting Idle
+    AnimatorLayerName: Base Layer
+    IsIdle: 1
+    IdleWeight: 1
+    IdleMode: Sitting
+    IsPose: 0
+    Loops: 1
+    HoldSeconds: 0
+    NextAnimationName: 
+    SourceAssetPath: Assets/Animations/Avatar/Idle/Sitting/Erika Archer@Sitting Idle.fbx
+    SourceFolder: Assets/Animations/Avatar/Idle/Sitting
   - Name: Aiming Gun
     Description: Use when the avatar aims or holds a gun, or is pretending to shoot
       at something.
     ParameterKey: BaseParam
-    ParameterValue: 1
+    ParameterValue: 2
     Duration: 2.4
     LayeredAnimationName: 
     LayeredAnimationLayerName: 
@@ -525,13 +602,17 @@ MonoBehaviour:
     IsIdle: 0
     IdleWeight: 1
     IdleMode: normal
+    IsPose: 0
+    Loops: 1
+    HoldSeconds: 0
+    NextAnimationName: Female Standing Pose
     SourceAssetPath: Assets/Animations/Avatar/FullBody/Erika Archer@Aiming Gun.fbx
     SourceFolder: Assets/Animations/Avatar/FullBody
   - Name: Angry
     Description: Use while the avatar is angry, annoyed or arguing. Standing, tense,
       confrontational.
     ParameterKey: BaseParam
-    ParameterValue: 2
+    ParameterValue: 3
     Duration: 19.166668
     LayeredAnimationName: 
     LayeredAnimationLayerName: 
@@ -540,13 +621,17 @@ MonoBehaviour:
     IsIdle: 0
     IdleWeight: 1
     IdleMode: normal
+    IsPose: 0
+    Loops: 1
+    HoldSeconds: 0
+    NextAnimationName: Female Standing Pose
     SourceAssetPath: Assets/Animations/Avatar/FullBody/Erika Archer@Angry.fbx
     SourceFolder: Assets/Animations/Avatar/FullBody
   - Name: A_Pose_Vex
     Description: Plays a short expressive full body pose, good when the avatar is
       showing off or striking a pose while talking.
     ParameterKey: BaseParam
-    ParameterValue: 3
+    ParameterValue: 4
     Duration: 6.25
     LayeredAnimationName: 
     LayeredAnimationLayerName: 
@@ -555,13 +640,17 @@ MonoBehaviour:
     IsIdle: 0
     IdleWeight: 1
     IdleMode: normal
+    IsPose: 0
+    Loops: 1
+    HoldSeconds: 0
+    NextAnimationName: Female Standing Pose
     SourceAssetPath: Assets/Animations/Avatar/Base/A_Pose_Vex.fbx
     SourceFolder: Assets/Animations/Avatar/Base
   - Name: Baseball Hit
     Description: Use when the avatar swings a bat or hits something with a big overarm
       swing.
     ParameterKey: BaseParam
-    ParameterValue: 4
+    ParameterValue: 5
     Duration: 3.9
     LayeredAnimationName: 
     LayeredAnimationLayerName: 
@@ -570,13 +659,17 @@ MonoBehaviour:
     IsIdle: 0
     IdleWeight: 1
     IdleMode: normal
+    IsPose: 0
+    Loops: 1
+    HoldSeconds: 0
+    NextAnimationName: Female Standing Pose
     SourceAssetPath: Assets/Animations/Avatar/FullBody/Erika Archer@Baseball Hit.fbx
     SourceFolder: Assets/Animations/Avatar/FullBody
   - Name: Defeated
     Description: Use when the avatar has lost, failed or given up. Slumps down in
       defeat.
     ParameterKey: BaseParam
-    ParameterValue: 5
+    ParameterValue: 6
     Duration: 6.7333336
     LayeredAnimationName: 
     LayeredAnimationLayerName: 
@@ -585,13 +678,17 @@ MonoBehaviour:
     IsIdle: 0
     IdleWeight: 1
     IdleMode: normal
+    IsPose: 0
+    Loops: 1
+    HoldSeconds: 0
+    NextAnimationName: Female Laying Pose
     SourceAssetPath: Assets/Animations/Avatar/FullBody/Erika Archer@Defeated.fbx
     SourceFolder: Assets/Animations/Avatar/FullBody
   - Name: Excited
     Description: Use when the avatar is excited, thrilled or celebrating good news.
       Big energetic full body motion.
     ParameterKey: BaseParam
-    ParameterValue: 6
+    ParameterValue: 7
     Duration: 6.566667
     LayeredAnimationName: 
     LayeredAnimationLayerName: 
@@ -600,154 +697,17 @@ MonoBehaviour:
     IsIdle: 0
     IdleWeight: 1
     IdleMode: normal
+    IsPose: 0
+    Loops: 2
+    HoldSeconds: 0
+    NextAnimationName: 
     SourceAssetPath: Assets/Animations/Avatar/FullBody/Erika Archer@Excited.fbx
-    SourceFolder: Assets/Animations/Avatar/FullBody
-  - Name: Female Laying Pose
-    Description: Use when the avatar is lying down on the ground, resting or relaxing
-      on their back.
-    ParameterKey: BaseParam
-    ParameterValue: 7
-    Duration: 10
-    LayeredAnimationName: 
-    LayeredAnimationLayerName: 
-    AnimatorStateName: Female Laying Pose
-    AnimatorLayerName: Base Layer
-    IsIdle: 0
-    IdleWeight: 1
-    IdleMode: normal
-    SourceAssetPath: Assets/Animations/Avatar/FullBody/Erika Archer@Female Laying
-      Pose.fbx
-    SourceFolder: Assets/Animations/Avatar/FullBody
-  - Name: Female Laying Pose (1)
-    Description: Use when the avatar is lying down on the ground in a second resting
-      variation.
-    ParameterKey: BaseParam
-    ParameterValue: 8
-    Duration: 10
-    LayeredAnimationName: 
-    LayeredAnimationLayerName: 
-    AnimatorStateName: Female Laying Pose (1)
-    AnimatorLayerName: Base Layer
-    IsIdle: 0
-    IdleWeight: 1
-    IdleMode: normal
-    SourceAssetPath: Assets/Animations/Avatar/FullBody/Erika Archer@Female Laying
-      Pose (1).fbx
-    SourceFolder: Assets/Animations/Avatar/FullBody
-  - Name: Female Sitting Pose
-    Description: Use when the avatar is sitting down on a chair or the floor and
-      holding still.
-    ParameterKey: BaseParam
-    ParameterValue: 9
-    Duration: 10
-    LayeredAnimationName: 
-    LayeredAnimationLayerName: 
-    AnimatorStateName: Female Sitting Pose
-    AnimatorLayerName: Base Layer
-    IsIdle: 0
-    IdleWeight: 1
-    IdleMode: normal
-    SourceAssetPath: Assets/Animations/Avatar/FullBody/Erika Archer@Female Sitting
-      Pose.fbx
-    SourceFolder: Assets/Animations/Avatar/FullBody
-  - Name: Female Sitting Pose (1)
-    Description: Use when the avatar is sitting down in a second seated variation.
-    ParameterKey: BaseParam
-    ParameterValue: 10
-    Duration: 10
-    LayeredAnimationName: 
-    LayeredAnimationLayerName: 
-    AnimatorStateName: Female Sitting Pose (1)
-    AnimatorLayerName: Base Layer
-    IsIdle: 0
-    IdleWeight: 1
-    IdleMode: normal
-    SourceAssetPath: Assets/Animations/Avatar/FullBody/Erika Archer@Female Sitting
-      Pose (1).fbx
-    SourceFolder: Assets/Animations/Avatar/FullBody
-  - Name: Female Sitting Pose (2)
-    Description: Use when the avatar is sitting down in a third seated variation.
-    ParameterKey: BaseParam
-    ParameterValue: 11
-    Duration: 10
-    LayeredAnimationName: 
-    LayeredAnimationLayerName: 
-    AnimatorStateName: Female Sitting Pose (2)
-    AnimatorLayerName: Base Layer
-    IsIdle: 0
-    IdleWeight: 1
-    IdleMode: normal
-    SourceAssetPath: Assets/Animations/Avatar/FullBody/Erika Archer@Female Sitting
-      Pose (2).fbx
-    SourceFolder: Assets/Animations/Avatar/FullBody
-  - Name: Female Standing Pose
-    Description: Use when the avatar is standing still in a relaxed casual pose.
-    ParameterKey: BaseParam
-    ParameterValue: 12
-    Duration: 10
-    LayeredAnimationName: 
-    LayeredAnimationLayerName: 
-    AnimatorStateName: Female Standing Pose
-    AnimatorLayerName: Base Layer
-    IsIdle: 0
-    IdleWeight: 1
-    IdleMode: normal
-    SourceAssetPath: Assets/Animations/Avatar/FullBody/Erika Archer@Female Standing
-      Pose.fbx
-    SourceFolder: Assets/Animations/Avatar/FullBody
-  - Name: Female Standing Pose (1)
-    Description: Use when the avatar is standing still in a second relaxed casual
-      pose.
-    ParameterKey: BaseParam
-    ParameterValue: 13
-    Duration: 10
-    LayeredAnimationName: 
-    LayeredAnimationLayerName: 
-    AnimatorStateName: Female Standing Pose (1)
-    AnimatorLayerName: Base Layer
-    IsIdle: 0
-    IdleWeight: 1
-    IdleMode: normal
-    SourceAssetPath: Assets/Animations/Avatar/FullBody/Erika Archer@Female Standing
-      Pose (1).fbx
-    SourceFolder: Assets/Animations/Avatar/FullBody
-  - Name: Female Standing Pose (2)
-    Description: Use when the avatar is standing still in a third relaxed casual
-      pose.
-    ParameterKey: BaseParam
-    ParameterValue: 14
-    Duration: 10
-    LayeredAnimationName: 
-    LayeredAnimationLayerName: 
-    AnimatorStateName: Female Standing Pose (2)
-    AnimatorLayerName: Base Layer
-    IsIdle: 0
-    IdleWeight: 1
-    IdleMode: normal
-    SourceAssetPath: Assets/Animations/Avatar/FullBody/Erika Archer@Female Standing
-      Pose (2).fbx
-    SourceFolder: Assets/Animations/Avatar/FullBody
-  - Name: Female Standing Pose (3)
-    Description: Use when the avatar is standing still in a fourth relaxed casual
-      pose.
-    ParameterKey: BaseParam
-    ParameterValue: 15
-    Duration: 10
-    LayeredAnimationName: 
-    LayeredAnimationLayerName: 
-    AnimatorStateName: Female Standing Pose (3)
-    AnimatorLayerName: Base Layer
-    IsIdle: 0
-    IdleWeight: 1
-    IdleMode: normal
-    SourceAssetPath: Assets/Animations/Avatar/FullBody/Erika Archer@Female Standing
-      Pose (3).fbx
     SourceFolder: Assets/Animations/Avatar/FullBody
   - Name: Look Around
     Description: Use when the avatar is searching, curious, or scanning the room
       and turning their head side to side.
     ParameterKey: BaseParam
-    ParameterValue: 16
+    ParameterValue: 8
     Duration: 4.4666667
     LayeredAnimationName: 
     LayeredAnimationLayerName: 
@@ -756,13 +716,17 @@ MonoBehaviour:
     IsIdle: 0
     IdleWeight: 1
     IdleMode: normal
+    IsPose: 0
+    Loops: 1
+    HoldSeconds: 0
+    NextAnimationName: Female Standing Pose
     SourceAssetPath: Assets/Animations/Avatar/FullBody/Erika Archer@Look Around.fbx
     SourceFolder: Assets/Animations/Avatar/FullBody
   - Name: Sitting And Pointing
     Description: Use when the avatar is seated and pointing at someone or something
       to draw attention to it.
     ParameterKey: BaseParam
-    ParameterValue: 17
+    ParameterValue: 9
     Duration: 3.0000002
     LayeredAnimationName: 
     LayeredAnimationLayerName: 
@@ -771,12 +735,16 @@ MonoBehaviour:
     IsIdle: 0
     IdleWeight: 1
     IdleMode: normal
+    IsPose: 0
+    Loops: 1
+    HoldSeconds: 0
+    NextAnimationName: Female Sitting Pose
     SourceAssetPath: Assets/Animations/Avatar/FullBody/Erika Archer@Sitting And Pointing.fbx
     SourceFolder: Assets/Animations/Avatar/FullBody
   - Name: Sitting Angry
     Description: Use while the seated avatar is angry or irritated.
     ParameterKey: BaseParam
-    ParameterValue: 18
+    ParameterValue: 10
     Duration: 2.766667
     LayeredAnimationName: 
     LayeredAnimationLayerName: 
@@ -785,12 +753,16 @@ MonoBehaviour:
     IsIdle: 0
     IdleWeight: 1
     IdleMode: normal
+    IsPose: 0
+    Loops: 1
+    HoldSeconds: 0
+    NextAnimationName: 
     SourceAssetPath: Assets/Animations/Avatar/FullBody/Erika Archer@Sitting Angry.fbx
     SourceFolder: Assets/Animations/Avatar/FullBody
   - Name: Sitting Clap
     Description: Use when the seated avatar applauds or claps along to something.
     ParameterKey: BaseParam
-    ParameterValue: 19
+    ParameterValue: 11
     Duration: 5.666667
     LayeredAnimationName: 
     LayeredAnimationLayerName: 
@@ -799,12 +771,16 @@ MonoBehaviour:
     IsIdle: 0
     IdleWeight: 1
     IdleMode: normal
+    IsPose: 0
+    Loops: 2
+    HoldSeconds: 0
+    NextAnimationName: Female Sitting Pose
     SourceAssetPath: Assets/Animations/Avatar/FullBody/Erika Archer@Sitting Clap.fbx
     SourceFolder: Assets/Animations/Avatar/FullBody
   - Name: Sitting Clap (1)
     Description: Use when the seated avatar applauds in a second clapping variation.
     ParameterKey: BaseParam
-    ParameterValue: 20
+    ParameterValue: 12
     Duration: 3.5000002
     LayeredAnimationName: 
     LayeredAnimationLayerName: 
@@ -813,29 +789,18 @@ MonoBehaviour:
     IsIdle: 0
     IdleWeight: 1
     IdleMode: normal
+    IsPose: 0
+    Loops: 2
+    HoldSeconds: 0
+    NextAnimationName: Female Sitting Pose
     SourceAssetPath: Assets/Animations/Avatar/FullBody/Erika Archer@Sitting Clap
       (1).fbx
-    SourceFolder: Assets/Animations/Avatar/FullBody
-  - Name: Sitting Idle
-    Description: Use when the avatar is sitting and doing nothing in particular.
-      Calm seated idle.
-    ParameterKey: BaseParam
-    ParameterValue: 21
-    Duration: 6.4000006
-    LayeredAnimationName: 
-    LayeredAnimationLayerName: 
-    AnimatorStateName: Sitting Idle
-    AnimatorLayerName: Base Layer
-    IsIdle: 0
-    IdleWeight: 1
-    IdleMode: normal
-    SourceAssetPath: Assets/Animations/Avatar/FullBody/Erika Archer@Sitting Idle.fbx
     SourceFolder: Assets/Animations/Avatar/FullBody
   - Name: Sitting Laughing
     Description: Use when the seated avatar is laughing hard at a joke or something
       funny.
     ParameterKey: BaseParam
-    ParameterValue: 22
+    ParameterValue: 13
     Duration: 8.333334
     LayeredAnimationName: 
     LayeredAnimationLayerName: 
@@ -844,12 +809,16 @@ MonoBehaviour:
     IsIdle: 0
     IdleWeight: 1
     IdleMode: normal
+    IsPose: 0
+    Loops: 2
+    HoldSeconds: 0
+    NextAnimationName: 
     SourceAssetPath: Assets/Animations/Avatar/FullBody/Erika Archer@Sitting Laughing.fbx
     SourceFolder: Assets/Animations/Avatar/FullBody
   - Name: Standing Clap
     Description: Use when the avatar applauds or claps while standing.
     ParameterKey: BaseParam
-    ParameterValue: 23
+    ParameterValue: 14
     Duration: 4.766667
     LayeredAnimationName: 
     LayeredAnimationLayerName: 
@@ -858,13 +827,17 @@ MonoBehaviour:
     IsIdle: 0
     IdleWeight: 1
     IdleMode: normal
+    IsPose: 0
+    Loops: 2
+    HoldSeconds: 0
+    NextAnimationName: Female Standing Pose
     SourceAssetPath: Assets/Animations/Avatar/FullBody/Erika Archer@Standing Clap.fbx
     SourceFolder: Assets/Animations/Avatar/FullBody
   - Name: Talking On Phone
     Description: Use when the avatar is on a phone call, holding a phone to their
       ear and chatting.
     ParameterKey: BaseParam
-    ParameterValue: 24
+    ParameterValue: 15
     Duration: 38.833336
     LayeredAnimationName: 
     LayeredAnimationLayerName: 
@@ -873,6 +846,10 @@ MonoBehaviour:
     IsIdle: 0
     IdleWeight: 1
     IdleMode: normal
+    IsPose: 0
+    Loops: 1
+    HoldSeconds: 0
+    NextAnimationName: Female Sitting Pose
     SourceAssetPath: Assets/Animations/Avatar/FullBody/Erika Archer@Talking On Phone.fbx
     SourceFolder: Assets/Animations/Avatar/FullBody
   - Name: A_Cheer
@@ -888,34 +865,190 @@ MonoBehaviour:
     IsIdle: 0
     IdleWeight: 1
     IdleMode: normal
+    IsPose: 0
+    Loops: 2
+    HoldSeconds: 0
+    NextAnimationName: 
     SourceAssetPath: Assets/Animations/Avatar/Gesture/A_Cheer.fbx
     SourceFolder: Assets/Animations/Avatar/Gesture
+  - Name: Female Laying Pose
+    Description: Use when the avatar is lying down on the ground, resting or relaxing
+      on their back.
+    ParameterKey: BaseParam
+    ParameterValue: 16
+    Duration: 0.1
+    LayeredAnimationName: 
+    LayeredAnimationLayerName: 
+    AnimatorStateName: Female Laying Pose
+    AnimatorLayerName: Base Layer
+    IsIdle: 0
+    IdleWeight: 1
+    IdleMode: normal
+    IsPose: 1
+    Loops: 1
+    HoldSeconds: 0
+    NextAnimationName: 
+    SourceAssetPath: Assets/Animations/Avatar/Pose/Erika Archer@Female Laying Pose.fbx
+    SourceFolder: Assets/Animations/Avatar/Pose
+  - Name: Female Laying Pose (1)
+    Description: Use when the avatar is lying down on the ground in a second resting
+      variation.
+    ParameterKey: BaseParam
+    ParameterValue: 17
+    Duration: 0.1
+    LayeredAnimationName: 
+    LayeredAnimationLayerName: 
+    AnimatorStateName: Female Laying Pose (1)
+    AnimatorLayerName: Base Layer
+    IsIdle: 0
+    IdleWeight: 1
+    IdleMode: normal
+    IsPose: 1
+    Loops: 1
+    HoldSeconds: 0
+    NextAnimationName: 
+    SourceAssetPath: Assets/Animations/Avatar/Pose/Erika Archer@Female Laying Pose
+      (1).fbx
+    SourceFolder: Assets/Animations/Avatar/Pose
+  - Name: Female Sitting Pose
+    Description: Use when the avatar is sitting down on a chair or the floor and
+      holding still.
+    ParameterKey: BaseParam
+    ParameterValue: 18
+    Duration: 0.1
+    LayeredAnimationName: 
+    LayeredAnimationLayerName: 
+    AnimatorStateName: Female Sitting Pose
+    AnimatorLayerName: Base Layer
+    IsIdle: 0
+    IdleWeight: 1
+    IdleMode: normal
+    IsPose: 1
+    Loops: 1
+    HoldSeconds: 0
+    NextAnimationName: 
+    SourceAssetPath: Assets/Animations/Avatar/Pose/Erika Archer@Female Sitting Pose.fbx
+    SourceFolder: Assets/Animations/Avatar/Pose
+  - Name: Female Sitting Pose (1)
+    Description: Use when the avatar is sitting down in a second seated variation.
+    ParameterKey: BaseParam
+    ParameterValue: 19
+    Duration: 0.1
+    LayeredAnimationName: 
+    LayeredAnimationLayerName: 
+    AnimatorStateName: Female Sitting Pose (1)
+    AnimatorLayerName: Base Layer
+    IsIdle: 0
+    IdleWeight: 1
+    IdleMode: normal
+    IsPose: 1
+    Loops: 1
+    HoldSeconds: 0
+    NextAnimationName: 
+    SourceAssetPath: Assets/Animations/Avatar/Pose/Erika Archer@Female Sitting Pose
+      (1).fbx
+    SourceFolder: Assets/Animations/Avatar/Pose
+  - Name: Female Sitting Pose (2)
+    Description: Use when the avatar is sitting down in a third seated variation.
+    ParameterKey: BaseParam
+    ParameterValue: 20
+    Duration: 0.1
+    LayeredAnimationName: 
+    LayeredAnimationLayerName: 
+    AnimatorStateName: Female Sitting Pose (2)
+    AnimatorLayerName: Base Layer
+    IsIdle: 0
+    IdleWeight: 1
+    IdleMode: normal
+    IsPose: 1
+    Loops: 1
+    HoldSeconds: 0
+    NextAnimationName: 
+    SourceAssetPath: Assets/Animations/Avatar/Pose/Erika Archer@Female Sitting Pose
+      (2).fbx
+    SourceFolder: Assets/Animations/Avatar/Pose
+  - Name: Female Standing Pose
+    Description: Use when the avatar is standing still in a relaxed casual pose.
+    ParameterKey: BaseParam
+    ParameterValue: 21
+    Duration: 0.1
+    LayeredAnimationName: 
+    LayeredAnimationLayerName: 
+    AnimatorStateName: Female Standing Pose
+    AnimatorLayerName: Base Layer
+    IsIdle: 0
+    IdleWeight: 1
+    IdleMode: normal
+    IsPose: 1
+    Loops: 1
+    HoldSeconds: 0
+    NextAnimationName: 
+    SourceAssetPath: Assets/Animations/Avatar/Pose/Erika Archer@Female Standing Pose.fbx
+    SourceFolder: Assets/Animations/Avatar/Pose
+  - Name: Female Standing Pose (1)
+    Description: Use when the avatar is standing still in a second relaxed casual
+      pose.
+    ParameterKey: BaseParam
+    ParameterValue: 22
+    Duration: 0.1
+    LayeredAnimationName: 
+    LayeredAnimationLayerName: 
+    AnimatorStateName: Female Standing Pose (1)
+    AnimatorLayerName: Base Layer
+    IsIdle: 0
+    IdleWeight: 1
+    IdleMode: normal
+    IsPose: 1
+    Loops: 1
+    HoldSeconds: 0
+    NextAnimationName: 
+    SourceAssetPath: Assets/Animations/Avatar/Pose/Erika Archer@Female Standing Pose
+      (1).fbx
+    SourceFolder: Assets/Animations/Avatar/Pose
+  - Name: Female Standing Pose (2)
+    Description: Use when the avatar is standing still in a third relaxed casual
+      pose.
+    ParameterKey: BaseParam
+    ParameterValue: 23
+    Duration: 0.1
+    LayeredAnimationName: 
+    LayeredAnimationLayerName: 
+    AnimatorStateName: Female Standing Pose (2)
+    AnimatorLayerName: Base Layer
+    IsIdle: 0
+    IdleWeight: 1
+    IdleMode: normal
+    IsPose: 1
+    Loops: 1
+    HoldSeconds: 0
+    NextAnimationName: 
+    SourceAssetPath: Assets/Animations/Avatar/Pose/Erika Archer@Female Standing Pose
+      (2).fbx
+    SourceFolder: Assets/Animations/Avatar/Pose
+  - Name: Female Standing Pose (3)
+    Description: Use when the avatar is standing still in a fourth relaxed casual
+      pose.
+    ParameterKey: BaseParam
+    ParameterValue: 24
+    Duration: 0.1
+    LayeredAnimationName: 
+    LayeredAnimationLayerName: 
+    AnimatorStateName: Female Standing Pose (3)
+    AnimatorLayerName: Base Layer
+    IsIdle: 0
+    IdleWeight: 1
+    IdleMode: normal
+    IsPose: 1
+    Loops: 1
+    HoldSeconds: 0
+    NextAnimationName: 
+    SourceAssetPath: Assets/Animations/Avatar/Pose/Erika Archer@Female Standing Pose
+      (3).fbx
+    SourceFolder: Assets/Animations/Avatar/Pose
   registerOnAwake: 1
   registerIdleAnimations: 1
   injectIntoSystemMessage: 1
-  systemPromptTemplate: 'You have a body and can move it. To play one of your animations,
-    write [anim:Name] immediately before the words that the movement should accompany.
-
-    Rules:
-
-    -
-    Only use animation names from the list below, spelled exactly as written. Never
-    invent a name.
-
-    - Use at most one [anim:Name] per sentence, and only when
-    the movement genuinely fits what you are saying.
-
-    - Saying something without
-    any animation is perfectly fine.
-
-    - The tag is not spoken, so do not read
-    it out or explain it.
-
-    
-
-    Your animations:
-
-    {0}'
+  systemPromptTemplate: 
 --- !u!1 &365511306
 GameObject:
   m_ObjectHideFlags: 0

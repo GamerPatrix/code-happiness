@@ -1,1 +1,4 @@
-Use when the seated avatar applauds or claps along to something.
+﻿Use when the seated avatar applauds or claps along to something.
+#loops=2
+#next=Female Sitting Pose
+

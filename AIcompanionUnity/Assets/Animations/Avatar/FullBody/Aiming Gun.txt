@@ -1,1 +1,3 @@
-Use when the avatar aims or holds a gun, or is pretending to shoot at something.
+﻿Use when the avatar aims or holds a gun, or is pretending to shoot at something.
+#next=Female Standing Pose
+

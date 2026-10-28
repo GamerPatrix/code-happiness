@@ -1,1 +1,3 @@
-Plays a short expressive full body pose, good when the avatar is showing off or striking a pose while talking.
+﻿Plays a short expressive full body pose, good when the avatar is showing off or striking a pose while talking.
+#next=Female Standing Pose
+

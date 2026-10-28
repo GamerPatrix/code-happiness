@@ -8,6 +8,9 @@ namespace ChatdollKit.Model
         public List<Voice> Voices { get; set; }
         public List<Animation> Animations { get; set; }
         public List<FaceExpression> Faces { get; set; }
+        // Idling mode to switch to before this frame plays, set by a [idle:mode] tag. Null when the
+        // frame does not ask for a change.
+        public string IdlingModeChange { get; set; }
 
         public AnimatedVoice(List<Voice> voices = null, List<Animation> animations = null, List<FaceExpression> faces = null)
         {
@@ -24,6 +27,16 @@ namespace ChatdollKit.Model
         public void AddAnimation(string paramKey, int paramValue, float duration = 0.0f, string layeredAnimation = null, string layeredAnimationLayer = null)
         {
             Animations.Add(new Animation(paramKey, paramValue, duration, layeredAnimation, layeredAnimationLayer));
+        }
+
+        // Adds a fully described animation (kind, loops, hold, next) built elsewhere, e.g. by
+        // ModelController from a [anim:...] / [pose:...] tag.
+        public void AddAnimation(Animation animation)
+        {
+            if (animation != null)
+            {
+                Animations.Add(animation);
+            }
         }
 
         public void AddFace(string name, float duration = 0.0f, string description = null)

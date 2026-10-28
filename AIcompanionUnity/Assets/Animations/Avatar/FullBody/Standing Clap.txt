@@ -1,1 +1,4 @@
-Use when the avatar applauds or claps while standing.
+﻿Use when the avatar applauds or claps while standing.
+#loops=2
+#next=Female Standing Pose
+

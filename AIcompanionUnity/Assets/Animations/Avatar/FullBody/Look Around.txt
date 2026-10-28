@@ -1,1 +1,3 @@
-Use when the avatar is searching, curious, or scanning the room and turning their head side to side.
+﻿Use when the avatar is searching, curious, or scanning the room and turning their head side to side.
+#next=Female Standing Pose
+

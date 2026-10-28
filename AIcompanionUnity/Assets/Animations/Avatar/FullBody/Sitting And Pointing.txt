@@ -1,1 +1,3 @@
-Use when the avatar is seated and pointing at someone or something to draw attention to it.
+﻿Use when the avatar is seated and pointing at someone or something to draw attention to it.
+#next=Female Sitting Pose
+

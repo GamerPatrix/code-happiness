@@ -14,18 +14,22 @@ using UnityEngine;
 /// matching state for every clip.
 ///
 /// Folder layout:
-///   Assets/Animations/Avatar/          clips here (or in Base/) play on the base layer
-///   Assets/Animations/Avatar/Idle/     clips here play on the base layer and are used while idling
-///   Assets/Animations/Avatar/Arms/     any other subfolder becomes its own additive layer
+///   Assets/Animations/Avatar/            clips here (or in Base/) play on the base layer
+///   Assets/Animations/Avatar/Idle/       clips here play on the base layer and are used while idling
+///   Assets/Animations/Avatar/Idle/Sitting/   the subfolder name is the idle mode ([idle:sitting])
+///   Assets/Animations/Avatar/Pose/       clips here hold in place instead of playing out
+///   Assets/Animations/Avatar/Arms/       any other subfolder becomes its own additive layer
 ///   Assets/Animations/Avatar/Arms/Wave.txt   optional sidecar describing what the clip does
 ///
 /// A sidecar .txt next to a clip (same file name, .txt extension) becomes the description the model
-/// sees, so it knows *when* to use the animation and not just that it exists.
+/// sees, so it knows *when* to use the animation and not just that it exists. Lines in it that start
+/// with '#' are metadata rather than description: #pose, #hold=5, #loops=3, #next=Wave.
 /// </summary>
 public static class AvatarAnimationLibraryEditor
 {
     private const string IdleFolderName = "Idle";
     private const string BaseLayerName = "Base Layer";
+    private static readonly string[] PoseFolderNames = { "Pose", "Poses" };
 
     [MenuItem("Tools/Code Happiness/Scan Avatar Animations")]
     public static void Scan()
@@ -138,16 +142,24 @@ public static class AvatarAnimationLibraryEditor
                 var clipFolder = clipFolders[clip];
                 var displayName = ClipDisplayName(clip);
                 var isBaseLayer = IsBaseLayerFolder(clipFolder, folderAssetPath);
+                var meta = ReadMetadata(clip, displayName, clipFolder, folderAssetPath);
+                var isIdle = isBaseLayer && IsIdleClip(displayName, clipFolder, folderAssetPath);
                 return new
                 {
                     clip,
                     displayName,
                     clipFolder,
                     isBaseLayer,
-                    isIdle = isBaseLayer && IsIdleClip(displayName, clipFolder, folderAssetPath)
+                    isIdle,
+                    isPose = meta.isPose,
+                    meta,
+                    idleMode = IdleModeFor(clipFolder, folderAssetPath)
                 };
             })
+            // Idles own the lowest values because BaseParam starts at 0, which is what the avatar does
+            // the moment the scene starts. Poses come next so they never end up owning 0 either.
             .OrderByDescending(c => c.isIdle)
+            .ThenBy(c => c.isPose)
             .ThenByDescending(c => c.isBaseLayer)
             .ThenBy(c => c.displayName, System.StringComparer.OrdinalIgnoreCase)
             .ToList();
@@ -176,7 +188,7 @@ public static class AvatarAnimationLibraryEditor
             entries.Add(new AvatarAnimationEntry
             {
                 Name = displayName,
-                Description = ReadDescription(clip.clip, displayName),
+                Description = clip.meta.description,
                 ParameterKey = parameterKey,
                 ParameterValue = parameterValue,
                 Duration = ClipDuration(clip.clip),
@@ -186,7 +198,11 @@ public static class AvatarAnimationLibraryEditor
                 AnimatorLayerName = isBaseLayer ? BaseLayerName : layerName,
                 IsIdle = isIdle,
                 IdleWeight = 1,
-                IdleMode = "normal",
+                IdleMode = isIdle ? clip.idleMode : "normal",
+                IsPose = clip.isPose,
+                Loops = clip.meta.loops,
+                HoldSeconds = clip.meta.hasHold ? clip.meta.holdSeconds : 0f,
+                NextAnimationName = clip.meta.next,
                 SourceAssetPath = AssetDatabase.GetAssetPath(clip.clip),
                 SourceFolder = clipFolder
             });
@@ -204,12 +220,14 @@ public static class AvatarAnimationLibraryEditor
 
         var baseCount = entries.Count(e => !e.IsLayered);
         var withDescription = entries.Count(e => !string.IsNullOrWhiteSpace(e.Description));
+        var idleModes = entries.Where(e => e.IsIdle).Select(e => e.IdleMode).Distinct().Count();
         Debug.Log(
 $@"Avatar animations scanned from {folderAssetPath}:
-- {baseCount} base layer clip(s), {entries.Count - baseCount} additive clip(s), {entries.Count(e => e.IsIdle)} idle clip(s)
+- {baseCount} base layer clip(s), {entries.Count - baseCount} additive clip(s)
+- {entries.Count(e => e.IsIdle)} idle clip(s) in {idleModes} idle mode(s), {entries.Count(e => e.IsPose)} pose(s)
 - {withDescription}/{entries.Count} have a description for the model
 - AnimatorController: {AssetDatabase.GetAssetPath(animatorController)}
-- The model can now use [anim:Name] tags. Press Play to try it.");
+- The model can now use [anim:Name], [pose:Name] and [idle:mode] tags. Press Play to try it.");
     }
 
     #region Scanning
@@ -273,18 +291,13 @@ $@"Avatar animations scanned from {folderAssetPath}:
     }
 
     /// <summary>
-    /// How long the model should hold the clip before going back to idle. Single frame clips are static
-    /// poses rather than animations, and one second is too short to read as "still sitting", so those get
-    /// a longer hold.
+    /// How long the model should hold the clip before going back to idle.
+    /// Poses get their natural length here - the time they actually hold comes from
+    /// <see cref="AvatarAnimationEntry.HoldSeconds"/>, which is decided by <see cref="ReadMetadata"/>.
     /// </summary>
     private static float ClipDuration(AnimationClip clip)
     {
-        if (clip.length < 0.5f)
-        {
-            return 10f;
-        }
-
-        return Mathf.Max(1f, clip.length);
+        return Mathf.Max(0.1f, clip.length);
     }
 
     private static bool IsAnimationAsset(string assetPath)
@@ -306,6 +319,13 @@ $@"Avatar animations scanned from {folderAssetPath}:
             return true;
         }
 
+        // Anything under Idle/ or a Pose/ folder replaces the whole body, so it belongs on the base layer.
+        var segments = RelativeSegments(clipFolder, rootFolder);
+        if (segments.Contains(IdleFolderName, System.StringComparer.OrdinalIgnoreCase) || IsPoseFolder(clipFolder, rootFolder))
+        {
+            return true;
+        }
+
         var folderName = clipFolder.Split('/').Last();
         return AvatarAnimationDefaults.BaseLayerFolderNames.Contains(folderName)
             || string.Equals(folderName, IdleFolderName, System.StringComparison.OrdinalIgnoreCase);
@@ -313,8 +333,9 @@ $@"Avatar animations scanned from {folderAssetPath}:
 
     private static bool IsIdleClip(string displayName, string clipFolder, string rootFolder)
     {
-        var folderName = clipFolder.Split('/').Last();
-        if (string.Equals(folderName, IdleFolderName, System.StringComparison.OrdinalIgnoreCase))
+        // Anything filed under Idle/ (including its <mode> subfolders) is part of the idle rotation.
+        var segments = RelativeSegments(clipFolder, rootFolder);
+        if (segments.Contains(IdleFolderName, System.StringComparer.OrdinalIgnoreCase))
         {
             return true;
         }
@@ -322,7 +343,7 @@ $@"Avatar animations scanned from {folderAssetPath}:
         // Only loose clips sitting in the root folder are guessed at from the name. Clips deliberately
         // filed in a named subfolder (Base, FullBody, ...) stay out of the idle rotation, otherwise a
         // "Sitting Idle" clip would make the avatar sit down at random while it should be standing.
-        if (string.Equals(clipFolder, rootFolder, System.StringComparison.OrdinalIgnoreCase))
+        if (segments.Length == 0)
         {
             return displayName.ToLowerInvariant().Contains("idle");
         }
@@ -330,8 +351,89 @@ $@"Avatar animations scanned from {folderAssetPath}:
         return false;
     }
 
-    /// <summary>Description for the model: a sidecar .txt next to the clip, otherwise nothing.</summary>
-    private static string ReadDescription(AnimationClip clip, string displayName)
+    /// <summary>Everything the scanner learned from the folder layout and the sidecar .txt file.</summary>
+    private class ClipMetadata
+    {
+        public string description = string.Empty;
+        public bool isPose;
+        public bool hasHold;
+        public float holdSeconds;
+        public int loops = 1;
+        public string next;
+    }
+
+    /// <summary>
+    /// Decides what a clip *is* rather than guessing from its length.
+    ///
+    /// Folder layout is the primary source: anything under a Pose/ (or Poses/) folder is a pose, and
+    /// Idle/&lt;mode&gt;/ subfolders name the idle mode the model can switch to with [idle:mode].
+    /// The sidecar .txt can override that with keyword lines:
+    ///   #pose            - treat as a pose (holds until replaced)
+    ///   #hold=5          - hold for 5 seconds
+    ///   #loops=3         - play 3 times in a row
+    ///   #next=Wave       - move into Wave when this one ends
+    /// Keyword lines are stripped from the description the model sees.
+    /// </summary>
+    private static ClipMetadata ReadMetadata(AnimationClip clip, string displayName, string clipFolder, string rootFolder)
+    {
+        var meta = new ClipMetadata();
+        meta.isPose = IsPoseFolder(clipFolder, rootFolder);
+        meta.description = ReadSidecar(clip, displayName);
+        return ApplySidecarKeywords(meta, ref meta.description);
+    }
+
+    private static ClipMetadata ApplySidecarKeywords(ClipMetadata meta, ref string description)
+    {
+        var kept = new List<string>();
+        foreach (var rawLine in (description ?? string.Empty).Replace("\r", string.Empty).Split('\n'))
+        {
+            var line = rawLine.Trim();
+            if (!line.StartsWith("#"))
+            {
+                kept.Add(rawLine);
+                continue;
+            }
+
+            var body = line.Substring(1).Trim();
+            var eq = body.IndexOf('=');
+            var key = (eq < 0 ? body : body.Substring(0, eq)).Trim().ToLowerInvariant();
+            var value = eq < 0 ? string.Empty : body.Substring(eq + 1).Trim().Trim('"', '\'');
+            switch (key)
+            {
+                case "pose":
+                case "poses":
+                    meta.isPose = true;
+                    break;
+                case "hold":
+                    if (float.TryParse(value, System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var hold))
+                    {
+                        meta.holdSeconds = hold;
+                        meta.hasHold = true;
+                    }
+                    break;
+                case "loops":
+                case "loop":
+                case "repeat":
+                    if (int.TryParse(value, out var loops) && loops > 0)
+                    {
+                        meta.loops = loops;
+                    }
+                    break;
+                case "next":
+                case "then":
+                    meta.next = string.IsNullOrEmpty(value) ? null : value;
+                    break;
+                default:
+                    Debug.LogWarning($"Unknown keyword '#{line.Substring(1)}' - ignoring.");
+                    break;
+            }
+        }
+
+        description = string.Join("\n", kept).Trim();
+        return meta;
+    }
+
+    private static string ReadSidecar(AnimationClip clip, string displayName)
     {
         var assetPath = AssetDatabase.GetAssetPath(clip);
         if (string.IsNullOrEmpty(assetPath))
@@ -355,6 +457,58 @@ $@"Avatar animations scanned from {folderAssetPath}:
         }
 
         return string.Empty;
+    }
+
+    /// <summary>True when the clip sits under a Pose/ (or Poses/) folder anywhere below the root.</summary>
+    private static bool IsPoseFolder(string clipFolder, string rootFolder)
+    {
+        foreach (var segment in RelativeSegments(clipFolder, rootFolder))
+        {
+            if (PoseFolderNames.Contains(segment, System.StringComparer.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /// <summary>Folder names between the root and the clip, e.g. Idle/sitting -> ["Idle","sitting"].</summary>
+    private static string[] RelativeSegments(string clipFolder, string rootFolder)
+    {
+        if (string.IsNullOrEmpty(clipFolder) || string.IsNullOrEmpty(rootFolder))
+        {
+            return System.Array.Empty<string>();
+        }
+
+        var normalized = clipFolder.Replace('\\', '/');
+        var root = rootFolder.Replace('\\', '/').TrimEnd('/');
+        if (normalized.StartsWith(root + "/", System.StringComparison.OrdinalIgnoreCase))
+        {
+            normalized = normalized.Substring(root.Length + 1);
+        }
+        else if (string.Equals(normalized, root, System.StringComparison.OrdinalIgnoreCase))
+        {
+            return System.Array.Empty<string>();
+        }
+
+        return normalized.Split('/').Where(s => !string.IsNullOrEmpty(s)).ToArray();
+    }
+
+    /// <summary>Idle mode for a clip under Idle/&lt;mode&gt;/, or "normal" when it is loose in Idle/.</summary>
+    private static string IdleModeFor(string clipFolder, string rootFolder)
+    {
+        var segments = RelativeSegments(clipFolder, rootFolder);
+        for (var i = 0; i < segments.Length - 1; i++)
+        {
+            if (string.Equals(segments[i], IdleFolderName, System.StringComparison.OrdinalIgnoreCase))
+            {
+                var mode = segments[i + 1];
+                return PoseFolderNames.Contains(mode, System.StringComparer.OrdinalIgnoreCase) ? "normal" : mode;
+            }
+        }
+
+        return "normal";
     }
 
     #endregion

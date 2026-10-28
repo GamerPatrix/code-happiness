@@ -1,1 +1,3 @@
-Use when the avatar has lost, failed or given up. Slumps down in defeat.
+﻿Use when the avatar has lost, failed or given up. Slumps down in defeat.
+#next=Female Laying Pose
+

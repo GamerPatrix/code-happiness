@@ -1,1 +1,4 @@
-Use when the seated avatar applauds in a second clapping variation.
+﻿Use when the seated avatar applauds in a second clapping variation.
+#loops=2
+#next=Female Sitting Pose
+

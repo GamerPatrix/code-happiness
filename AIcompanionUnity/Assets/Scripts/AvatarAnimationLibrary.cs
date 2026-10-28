@@ -40,11 +40,42 @@ namespace CodeHappiness.Avatar
         public int IdleWeight = 1;
         public string IdleMode = "normal";
 
+        /// <summary>Pose = the avatar stays in it. Animation = it plays out and ends.</summary>
+        public bool IsPose;
+
+        /// <summary>How many times in a row the LLM may want this played. 1 = once.</summary>
+        public int Loops = 1;
+
+        /// <summary>
+        /// Extra seconds on top of natural playback. For a pose this is the whole hold and 0 means
+        /// "hold until something else replaces it".
+        /// </summary>
+        public float HoldSeconds;
+
+        /// <summary>Animation/pose to move to when this one finishes. Optional.</summary>
+        public string NextAnimationName;
+
         /// <summary>Asset that contains the clip (.anim file or FBX model).</summary>
         public string SourceAssetPath;
         public string SourceFolder;
 
         public bool IsLayered => !string.IsNullOrEmpty(LayeredAnimationName) && !string.IsNullOrEmpty(LayeredAnimationLayerName);
+
+        /// <summary>Builds the runtime animation object for this entry.</summary>
+        public Animation ToAnimation()
+        {
+            var duration = Duration > 0f ? Duration : 1f;
+            return new Animation(ParameterKey, ParameterValue, duration, LayeredAnimationName, LayeredAnimationLayerName)
+            {
+                Name = Name,
+                AnimatorStateName = AnimatorStateName,
+                AnimatorLayerName = AnimatorLayerName,
+                Kind = IsPose ? AnimationKind.Pose : AnimationKind.Animation,
+                Loops = Loops > 0 ? Loops : 1,
+                HoldSeconds = HoldSeconds,
+                NextAnimationName = NextAnimationName
+            };
+        }
     }
 
     /// <summary>
@@ -59,16 +90,41 @@ namespace CodeHappiness.Avatar
     [DisallowMultipleComponent]
     public class AvatarAnimationLibrary : MonoBehaviour
     {
-        private const string DefaultSystemPromptTemplate =
-@"You have a body and can move it. To play one of your animations, write [anim:Name] immediately before the words that the movement should accompany.
-Rules:
-- Only use animation names from the list below, spelled exactly as written. Never invent a name.
-- Use at most one [anim:Name] per sentence, and only when the movement genuinely fits what you are saying.
-- Saying something without any animation is perfectly fine.
-- The tag is not spoken, so do not read it out or explain it.
+        // A pose filed into an Idle/ folder still has to let the next random idle take over.
+        private const float IdlePoseDefaultHoldSeconds = 8f;
 
-Your animations:
-{0}";
+        private const string DefaultSystemPromptTemplate =
+@"You have a body and can move it. You can play animations, freeze in a pose, and change how you idle.
+
+Tags (write them inline, immediately before the words the movement should accompany):
+- [anim:""Name""] plays a clip once. Optional options separated by spaces:
+    [anim:""Name"" loops=3] plays it 3 times in a row.
+    [anim:""Name"" hold=2] stays in the last frame 2 extra seconds.
+    [anim:""Name"" next=""OtherName""] moves into another animation/pose when this one ends.
+- [pose:""Name""] freezes you in a position and you stay there until you do something else.
+    [pose:""Name"" hold=5] holds for 5 seconds then returns to idle.
+    [pose:""Name"" next=""OtherName""] holds, then moves into that animation/pose.
+- [idle:mode] changes which idle animation plays while you are not moving, e.g. [idle:Sitting].
+    It is not a pose and should not be used to request the initial sit-down posture. For a held
+    posture, use a matching [pose:""Name""] from the Poses list; use [idle:Sitting] only when you
+    want the seated idle animation to cycle after you are already sitting.
+
+Rules:
+- Only use names from the lists below, spelled exactly as written and kept inside the quotes.
+    Never invent a name.
+- Durations are in seconds. Use loops/hold/next to time a movement to what you are saying.
+- Use at most one tag per sentence, and only when the movement genuinely fits what you are saying.
+- Saying something without any tag is perfectly fine.
+- Tags are not spoken, so do not read them out or explain them.
+
+Animations (they play out and end):
+{0}
+
+Poses (you stay in them):
+{1}
+
+Idle modes (for [idle:mode]):
+{2}";
 
         [Header("References (auto-detected when empty)")]
         [SerializeField] private ModelController modelController;
@@ -124,10 +180,7 @@ Your animations:
                     continue;
                 }
 
-                var duration = entry.Duration > 0f ? entry.Duration : 1f;
-                controller.RegisterAnimation(
-                    entry.Name,
-                    new Animation(entry.ParameterKey, entry.ParameterValue, duration, entry.LayeredAnimationName, entry.LayeredAnimationLayerName));
+                controller.RegisterAnimation(entry.Name, entry.ToAnimation());
                 count++;
             }
 
@@ -135,9 +188,16 @@ Your animations:
             {
                 foreach (var entry in entries.Where(e => e.IsIdle && !string.IsNullOrEmpty(e.Name)))
                 {
-                    var duration = entry.Duration > 0f ? entry.Duration : 1f;
+                    var idle = entry.ToAnimation();
+                    // An idle that holds forever would stop the random rotation dead, so give a pose
+                    // used as an idle a default hold time.
+                    if (idle.IsPose && idle.HoldSeconds <= 0f)
+                    {
+                        idle.HoldSeconds = IdlePoseDefaultHoldSeconds;
+                    }
+
                     controller.AddIdleAnimation(
-                        new Animation(entry.ParameterKey, entry.ParameterValue, duration, entry.LayeredAnimationName, entry.LayeredAnimationLayerName),
+                        idle,
                         entry.IdleWeight > 0 ? entry.IdleWeight : 1,
                         string.IsNullOrEmpty(entry.IdleMode) ? "normal" : entry.IdleMode);
                 }
@@ -206,35 +266,101 @@ Your animations:
         /// <summary>Bulleted list of "name: description" lines for every registered animation.</summary>
         public string BuildAnimationList()
         {
-            var sb = new StringBuilder();
-            foreach (var entry in entries)
-            {
-                if (string.IsNullOrEmpty(entry.Name))
-                {
-                    continue;
-                }
+            return BuildEntryList(false);
+        }
 
-                sb.Append("- ").Append(entry.Name);
-                if (!string.IsNullOrWhiteSpace(entry.Description))
+        /// <summary>Bulleted list of the poses the avatar can hold.</summary>
+        public string BuildPoseList()
+        {
+            return BuildEntryList(true);
+        }
+
+        /// <summary>Bulleted list of the idle modes the model can switch between.</summary>
+        public string BuildIdleModeList()
+        {
+            var sb = new StringBuilder();
+            foreach (var group in entries.Where(e => e.IsIdle && !string.IsNullOrEmpty(e.Name))
+                         .GroupBy(e => string.IsNullOrEmpty(e.IdleMode) ? "normal" : e.IdleMode))
+            {
+                sb.Append("- ").Append(group.Key).Append(": ").Append(group.Count()).Append(" clip(s)");
+                var first = group.FirstOrDefault(e => !string.IsNullOrWhiteSpace(e.Description));
+                if (first != null)
                 {
-                    sb.Append(": ").Append(entry.Description.Trim().Replace("\r", " ").Replace("\n", " "));
+                    sb.Append(" - e.g. ").Append(Clean(first.Description));
                 }
                 sb.AppendLine();
             }
             return sb.ToString().TrimEnd();
         }
 
+        private string BuildEntryList(bool poses)
+        {
+            var sb = new StringBuilder();
+            foreach (var entry in entries)
+            {
+                if (string.IsNullOrEmpty(entry.Name) || entry.IsIdle || entry.IsPose != poses)
+                {
+                    continue;
+                }
+
+                sb.Append("- \"").Append(entry.Name).Append('"');
+                if (!string.IsNullOrWhiteSpace(entry.Description))
+                {
+                    sb.Append(": ").Append(Clean(entry.Description));
+                }
+
+                sb.Append(" (").Append(poses ? "pose" : "animation").Append(", ~").Append(FormatDuration(entry)).Append(")");
+                if (!string.IsNullOrEmpty(entry.NextAnimationName))
+                {
+                    sb.Append(" ends in \"").Append(entry.NextAnimationName).Append('"');
+                }
+                sb.AppendLine();
+            }
+            return sb.ToString().TrimEnd();
+        }
+
+        private static string Clean(string text)
+        {
+            return text.Trim().Replace("\r", " ").Replace("\n", " ");
+        }
+
+        private static string FormatDuration(AvatarAnimationEntry entry)
+        {
+            if (entry.IsPose && entry.HoldSeconds <= 0f)
+            {
+                return "holds until replaced";
+            }
+
+            var loops = entry.Loops > 0 ? entry.Loops : 1;
+            var seconds = (entry.Duration > 0f ? entry.Duration : 1f) * loops + Mathf.Max(0f, entry.HoldSeconds);
+            return seconds.ToString("0.0") + "s" + (loops > 1 ? ", " + loops + " loops" : string.Empty);
+        }
+
         /// <summary>The full animation instructions that get appended to the LLM system message.</summary>
         public string BuildSystemPrompt()
         {
-            var list = BuildAnimationList();
-            if (string.IsNullOrEmpty(list))
+            var animations = BuildAnimationList();
+            var poses = BuildPoseList();
+            var idleModes = BuildIdleModeList();
+            if (string.IsNullOrEmpty(animations) && string.IsNullOrEmpty(poses) && string.IsNullOrEmpty(idleModes))
             {
                 return string.Empty;
             }
 
-            var template = string.IsNullOrEmpty(systemPromptTemplate) ? DefaultSystemPromptTemplate : systemPromptTemplate;
-            return string.Format(template, list);
+            var template = systemPromptTemplate;
+            // Scene assets keep serialized values even after this code's defaults change. The
+            // existing scene still has the old animation-only template, which hides poses and idle
+            // modes from the model. Keep custom templates that opt into the complete tag format;
+            // otherwise use the current template so the model can actually discover those entries.
+            if (string.IsNullOrEmpty(template)
+                || !template.Contains("[pose:")
+                || !template.Contains("{1}")
+                || !template.Contains("{2}"))
+            {
+                template = DefaultSystemPromptTemplate;
+            }
+
+            return string.Format(template, animations, poses, idleModes);
         }
 
         /// <summary>
@@ -313,6 +439,6 @@ Your animations:
         /// "FullBody" is here because clips like sitting, laying or aiming replace the whole pose - blending
         /// them additively on top of the standing idle looks broken.
         /// </remarks>
-        public static readonly string[] BaseLayerFolderNames = { "Base", "Base Layer", "BaseLayer", "FullBody" };
+        public static readonly string[] BaseLayerFolderNames = { "Base", "Base Layer", "BaseLayer", "FullBody", "Pose", "Poses" };
     }
 }

@@ -1,1 +1,3 @@
-Use when the seated avatar is laughing hard at a joke or something funny.
+﻿Use when the seated avatar is laughing hard at a joke or something funny.
+#loops=2
+

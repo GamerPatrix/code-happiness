@@ -37,6 +37,24 @@ namespace ChatdollKit.Model
             AnimatedVoices.Last().AddAnimation(paramKey, paramValue, duration, layeredAnimation, layeredAnimationLayer);
         }
 
+        public void AddAnimation(Animation animation, bool asNewFrame = false)
+        {
+            if (asNewFrame || AnimatedVoices.Count == 0)
+            {
+                CreateNewFrame();
+            }
+            AnimatedVoices.Last().AddAnimation(animation);
+        }
+
+        public void AddIdlingModeChange(string mode, bool asNewFrame = false)
+        {
+            if (asNewFrame || AnimatedVoices.Count == 0)
+            {
+                CreateNewFrame();
+            }
+            AnimatedVoices.Last().IdlingModeChange = mode;
+        }
+
         public void AddFace(string name, float duration = 0.0f, string description = null, bool asNewFrame = false)
         {
             if (asNewFrame || AnimatedVoices.Count == 0)

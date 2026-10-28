@@ -1,1 +1,3 @@
-Use when the avatar is on a phone call, holding a phone to their ear and chatting.
+﻿Use when the avatar is on a phone call, holding a phone to their ear and chatting.
+#next=Female Sitting Pose
+
