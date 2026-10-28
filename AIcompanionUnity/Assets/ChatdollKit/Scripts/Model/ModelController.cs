@@ -25,6 +25,11 @@ namespace ChatdollKit.Model
         [SerializeField]
         private string layeredAnimationDefaultState = "Default";
         public float AnimationFadeLength = 0.5f;
+        // Upper bound for how long AnimatedSay() waits for an animation to play out when there
+        // is no audio occupying that time (e.g. a text-only companion whose speech synthesizer
+        // returns no clip). Keeps a reply made of many tagged sentences from stalling.
+        [SerializeField]
+        private float MaxAnimationHoldSeconds = 10f;
         private Animator animator;
         private List<Animation> animationQueue = new List<Animation>();
         private float animationStartAt { get; set; }
@@ -191,16 +196,16 @@ namespace ChatdollKit.Model
                     break;
                 }
 
-                // Animation
-                if (animatedVoice.Animations.Count > 0)
-                {
-                    Animate(animatedVoice.Animations);
-                }
-
                 // Face
                 if (animatedVoice.Faces != null && animatedVoice.Faces.Count > 0)
                 {
                     FaceController.SetFace(animatedVoice.Faces);
+                }
+
+                // Animation
+                if (animatedVoice.Animations.Count > 0)
+                {
+                    Animate(animatedVoice.Animations);
                 }
 
                 // Speech
@@ -208,6 +213,15 @@ namespace ChatdollKit.Model
                 {
                     // Wait for the requested voices end
                     await SpeechController.Say(animatedVoice.Voices, token);
+                }
+
+                // Hold until the animations queued for this sentence have played out.
+                // Speech normally already occupies this time, but when the synthesizer returns
+                // nothing the loop would otherwise run every sentence in a single frame and only
+                // the last animation would ever reach the Animator.
+                if (animatedVoice.Animations.Count > 0)
+                {
+                    await WaitForAnimationsAsync(animatedVoice.Animations, token);
                 }
             }
 
@@ -223,7 +237,7 @@ namespace ChatdollKit.Model
                         var remainingTime = currentAnimation.Duration - (Time.realtimeSinceStartup - animationStartAt);
                         if (remainingTime > 0)
                         {
-                            await UniTask.Delay((int)(remainingTime * 1000), cancellationToken: token);
+                            await UniTask.Delay((int)(Mathf.Min(remainingTime, MaxAnimationHoldSeconds) * 1000), cancellationToken: token);
                         }
                     }
                     // Stop running animation not to keep the current state to the next turn (prompting)
@@ -231,6 +245,24 @@ namespace ChatdollKit.Model
                     StartIdling();
                 }
                 // If already idling, don't interrupt the current idle animation
+            }
+        }
+
+        // Wait until the animations queued for one sentence have played out.
+        // Animate() starts the first one and stamps animationStartAt, so the time left
+        // can be measured right away.
+        private async UniTask WaitForAnimationsAsync(List<Animation> animations, CancellationToken token)
+        {
+            var totalDuration = 0f;
+            for (var i = 0; i < animations.Count; i++)
+            {
+                totalDuration += animations[i].Duration;
+            }
+
+            var remainingTime = totalDuration - (Time.realtimeSinceStartup - animationStartAt);
+            if (remainingTime > 0)
+            {
+                await UniTask.Delay((int)(Mathf.Min(remainingTime, MaxAnimationHoldSeconds) * 1000), cancellationToken: token);
             }
         }
 
@@ -300,6 +332,11 @@ namespace ChatdollKit.Model
             animationQueue = new List<Animation>(animations);
             animationStartAt = 0;
             GetAnimation = GetQueuedAnimation;
+
+            // Start the first queued animation right away instead of waiting for the next
+            // Update(). Callers such as AnimatedSay() can run several Animate() calls within
+            // a single frame, and without this only the last one would ever reach the Animator.
+            UpdateAnimation();
         }
 
         private void ResetLayers()
