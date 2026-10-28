@@ -193,6 +193,9 @@ namespace ChatdollKit.Model
             return currentAnimation != null && currentAnimation.IsPose && currentAnimation.HoldSeconds <= 0f;
         }
 
+        // Name of the clip currently in charge of the Animator, or null while just idling.
+        public string CurrentAnimationName => currentAnimation != null ? currentAnimation.Name : null;
+
         /// <summary>
         /// Hook for the sitting-point system (AvatarPointLibrary). Called by AnimatedSay with the body
         /// of a [sit:"Name"] / [stand] tag before that frame's faces and animations run, so the avatar

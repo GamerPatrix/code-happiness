@@ -73,6 +73,11 @@ Spots you can use:
         private CancellationTokenSource wanderTokenSource;
         private float lastWanderAt = float.NegativeInfinity;
 
+        // The arrival clip this library started itself on the current spot. A sit-down clip is a pose,
+        // and a pose is normally sticky forever, so without this the wander loop's very first move
+        // would block every later one via ModelController.IsHoldingPose().
+        private string arrivalAnimationStarted;
+
         public ModelController ModelController => modelController != null ? modelController : (modelController = Resolve<ModelController>());
         public AvatarAnimationLibrary AnimationLibrary => animationLibrary != null ? animationLibrary : (animationLibrary = Resolve<AvatarAnimationLibrary>());
         public LLMServiceBase LLMService => llmService != null ? llmService : (llmService = Resolve<LLMServiceBase>());
@@ -342,6 +347,7 @@ Spots you can use:
             // the avatar is on this point.
             controller.TeleportToAndHold(point.Position, point.Rotation);
             CurrentPoint = point;
+            arrivalAnimationStarted = null;
 
             var arrivalAnimationName = string.IsNullOrWhiteSpace(animationName) ? point.DefaultAnimationName : animationName;
             var animation = BuildAnimation(arrivalAnimationName);
@@ -351,6 +357,7 @@ Spots you can use:
             }
 
             WarnIfNotAllowedAt(point, animation.Name);
+            arrivalAnimationStarted = animation.Name;
             controller.Animate(new List<Animation> { animation });
             return true;
         }
@@ -365,6 +372,7 @@ Spots you can use:
             }
 
             CurrentPoint = null;
+            arrivalAnimationStarted = null;
             controller.ReleasePosition();
             await controller.ChangeIdlingModeAsync("Standing");
         }
@@ -481,8 +489,11 @@ Spots you can use:
                 return false;
             }
 
-            // A pose the model deliberately asked for must survive until the model replaces it.
-            if (controller.IsHoldingPose())
+            // A pose the model deliberately asked for must survive until the model replaces it. The
+            // arrival clip this library picked for the current spot does not count - otherwise sitting
+            // down once would freeze the wander loop forever.
+            if (controller.IsHoldingPose() &&
+                controller.CurrentAnimationName != arrivalAnimationStarted)
             {
                 return false;
             }

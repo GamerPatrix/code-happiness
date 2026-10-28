@@ -145,7 +145,7 @@ Transform:
   m_GameObject: {fileID: 152415933}
   serializedVersion: 2
   m_LocalRotation: {x: 3.5527133e-15, y: 0.69788396, z: 2.4980015e-16, w: 0.716211}
-  m_LocalPosition: {x: 0.235, y: 0.218, z: -1.041}
+  m_LocalPosition: {x: 0.237, y: 0.218, z: -1.104}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -180,6 +180,8 @@ MonoBehaviour:
     Note: 
   - AnimationName: Standing Clap
     Note: 'its a stand up from sitting clap then sit back down '
+  - AnimationName: Female Sitting Pose (2)
+    Note: 
   includeInPrompt: 1
   usePointRotation: 1
   idleMode: Sitting
@@ -1310,6 +1312,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 387586351}
   m_CullTransparentMesh: 1
+--- !u!4 &397243577 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 808951037396372749, guid: 49f576a03ece56a4e9c640ed081f6a68, type: 3}
+  m_PrefabInstance: {fileID: 916870700}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &784579719
 GameObject:
   m_ObjectHideFlags: 0
@@ -1543,12 +1550,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1218646421132259226, guid: 1d5e19274a5fe3b4dadb2abaab469404, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1218646421132259226, guid: 1d5e19274a5fe3b4dadb2abaab469404, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1218646421132259226, guid: 1d5e19274a5fe3b4dadb2abaab469404, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000029802312
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1218646421132259226, guid: 1d5e19274a5fe3b4dadb2abaab469404, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000015449125
+      value: 0.000000001517354
       objectReference: {fileID: 0}
     - target: {fileID: 1425266294160383617, guid: 1d5e19274a5fe3b4dadb2abaab469404, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2156,31 +2171,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3705508424531025751, guid: 1d5e19274a5fe3b4dadb2abaab469404, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.0014032236
+      value: -0.0014033207
       objectReference: {fileID: 0}
     - target: {fileID: 3705508424531025751, guid: 1d5e19274a5fe3b4dadb2abaab469404, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.041417453
+      value: 0.04141728
       objectReference: {fileID: 0}
     - target: {fileID: 3705508424531025751, guid: 1d5e19274a5fe3b4dadb2abaab469404, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.015981324
+      value: -0.015981345
       objectReference: {fileID: 0}
     - target: {fileID: 3705508424531025751, guid: 1d5e19274a5fe3b4dadb2abaab469404, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.70675766
+      value: 0.7067576
       objectReference: {fileID: 0}
     - target: {fileID: 3705508424531025751, guid: 1d5e19274a5fe3b4dadb2abaab469404, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.022227038
+      value: -0.022227036
       objectReference: {fileID: 0}
     - target: {fileID: 3705508424531025751, guid: 1d5e19274a5fe3b4dadb2abaab469404, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.70675707
+      value: 0.7067571
       objectReference: {fileID: 0}
     - target: {fileID: 3705508424531025751, guid: 1d5e19274a5fe3b4dadb2abaab469404, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.022227172
+      value: -0.022227207
       objectReference: {fileID: 0}
     - target: {fileID: 3811184332640672125, guid: 1d5e19274a5fe3b4dadb2abaab469404, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3395,6 +3410,9 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 808951037396372749, guid: 49f576a03ece56a4e9c640ed081f6a68, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1276265005}
     - targetCorrespondingSourceObject: {fileID: 808951038438710263, guid: 49f576a03ece56a4e9c640ed081f6a68, type: 3}
       insertIndex: -1
       addedObject: {fileID: 784579720}
@@ -3404,6 +3422,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 808951038438710263, guid: 49f576a03ece56a4e9c640ed081f6a68, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1121592640}
+    - targetCorrespondingSourceObject: {fileID: 808951038438710263, guid: 49f576a03ece56a4e9c640ed081f6a68, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1726202054}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 808951037977601808, guid: 49f576a03ece56a4e9c640ed081f6a68, type: 3}
       insertIndex: -1
@@ -3718,13 +3739,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1076339527}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.06975647, y: 0, z: 0, w: 0.9975641}
-  m_LocalPosition: {x: 0, y: 1.293, z: -3.312}
+  m_LocalRotation: {x: 0.058600307, y: -0.2566512, z: 0.015591788, w: 0.96459997}
+  m_LocalPosition: {x: -0.0000001386434, y: 1.293, z: -3.312}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 6.953, y: -29.799, z: 0}
 --- !u!20 &1076339529
 Camera:
   m_ObjectHideFlags: 0
@@ -3873,7 +3894,7 @@ GameObject:
   - component: {fileID: 1121592640}
   - component: {fileID: 1121592641}
   m_Layer: 0
-  m_Name: Couch far end
+  m_Name: CouchRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3887,13 +3908,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1121592639}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.86602616, z: 0, w: 0.49999872}
-  m_LocalPosition: {x: -0.05, y: 0.5, z: 0.95}
+  m_LocalRotation: {x: -7.1054265e-15, y: 0.98755205, z: 3.5527133e-15, w: 0.15729271}
+  m_LocalPosition: {x: 0.234, y: 0.208, z: -1.073}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1196702934}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 161.9, z: 0}
 --- !u!114 &1121592641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3906,21 +3927,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a6d00371600c0646a228f911ced8432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CodeHappiness.Avatar.AvatarSittingPoint
-  pointName: Couch far end
-  description: The far end of the same sofa, long enough to stretch out. Use this
-    when you want to lie down and relax rather than sit up.
-  kind: 1
+  pointName: CouchRight
+  description: 
+  kind: 0
   animations:
-  - AnimationName: Female Laying Pose
-    Note: lying along the sofa
-  - AnimationName: Female Laying Pose (1)
-    Note: lying on the side, propped on one elbow
-  - AnimationName: Female Sitting Pose (2)
-    Note: sitting at the very end with legs up on the cushion
+  - AnimationName: Female Sitting Pose (1)
+    Note: 
+  - AnimationName: Female Sitting Pose
+    Note: 
   includeInPrompt: 1
   usePointRotation: 1
   idleMode: 
-  defaultAnimationName: Female Laying Pose
+  defaultAnimationName: Female Sitting Pose (1)
 --- !u!4 &1196702934 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 808951038438710263, guid: 49f576a03ece56a4e9c640ed081f6a68, type: 3}
@@ -4024,6 +4042,90 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &1276265004
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1276265005}
+  - component: {fileID: 1276265006}
+  m_Layer: 0
+  m_Name: Stand_in_front_of_camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1276265005
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276265004}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.6506136, z: -0, w: -0.759409}
+  m_LocalPosition: {x: -3.497749, y: 0.11999998, z: 0.028712047}
+  m_LocalScale: {x: 1.1764703, y: 1.1764705, z: 1.1764703}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 397243577}
+  m_LocalEulerAnglesHint: {x: 0, y: -278.824, z: 0}
+--- !u!114 &1276265006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276265004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a6d00371600c0646a228f911ced8432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CodeHappiness.Avatar.AvatarSittingPoint
+  pointName: In_front_of_camera
+  description: 
+  kind: 3
+  animations:
+  - AnimationName: A_Idle_F
+    Note: 
+  - AnimationName: Aiming Gun
+    Note: 
+  - AnimationName: Angry
+    Note: 
+  - AnimationName: A_Pose_Vex
+    Note: 
+  - AnimationName: Baseball Hit
+    Note: 
+  - AnimationName: Defeated
+    Note: 
+  - AnimationName: Excited
+    Note: 
+  - AnimationName: Look Around
+    Note: 
+  - AnimationName: Talking On Phone
+    Note: 
+  - AnimationName: A_Cheer
+    Note: 
+  - AnimationName: Female Standing Pose
+    Note: 
+  - AnimationName: Female Standing Pose (1)
+    Note: 
+  - AnimationName: Female Standing Pose (2)
+    Note: 
+  - AnimationName: Female Standing Pose (3)
+    Note: 
+  - AnimationName: Female Laying Pose
+    Note: 
+  - AnimationName: Female Laying Pose (1)
+    Note: 
+  includeInPrompt: 1
+  usePointRotation: 1
+  idleMode: Standing
+  defaultAnimationName: A_Idle_F
 --- !u!1 &1279618096
 GameObject:
   m_ObjectHideFlags: 0
@@ -4503,12 +4605,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1726202052}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.7131387, z: -0, w: 0.701023}
-  m_LocalPosition: {x: -2.529, y: 0.588, z: 0.663}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.000000010765264, y: -0.8702779, z: 0.000000019020531, w: 0.49256098}
+  m_LocalPosition: {x: -0.027836382, y: 0.68352926, z: 0.6019286}
+  m_LocalScale: {x: 1.1764706, y: 1.1764705, z: 1.1764706}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1196702934}
   m_LocalEulerAnglesHint: {x: 0, y: -90.982, z: 0}
 --- !u!114 &1760664146
 MonoBehaviour:
@@ -4900,4 +5002,3 @@ SceneRoots:
   - {fileID: 1790120937}
   - {fileID: 916870700}
   - {fileID: 933926061}
-  - {fileID: 1726202054}
