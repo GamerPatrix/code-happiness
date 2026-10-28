@@ -11,6 +11,9 @@ namespace ChatdollKit.Model
         // Idling mode to switch to before this frame plays, set by a [idle:mode] tag. Null when the
         // frame does not ask for a change.
         public string IdlingModeChange { get; set; }
+        // Sitting point to move to before this frame plays, set by a [sit:"Name"] or [stand] tag.
+        // Null when the frame does not ask for a move; empty string means "get up and stand".
+        public string PointChange { get; set; }
 
         public AnimatedVoice(List<Voice> voices = null, List<Animation> animations = null, List<FaceExpression> faces = null)
         {

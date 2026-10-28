@@ -151,6 +151,32 @@ Idle modes (for [idle:mode]):
 
         public IEnumerable<string> AnimationNames => entries.Where(e => !string.IsNullOrEmpty(e.Name)).Select(e => e.Name);
 
+        /// <summary>
+        /// True when name matches a registered entry (case-insensitive). Used by AvatarSittingPoint to
+        /// tell the author that a spot lists a clip that does not exist in the library.
+        /// </summary>
+        public bool IsAnimationKnown(string name) => FindEntry(name) != null;
+
+        /// <summary>Returns the entry with this name, or null. Case-insensitive.</summary>
+        public AvatarAnimationEntry FindEntry(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                return null;
+            }
+
+            var trimmed = name.Trim();
+            for (var i = 0; i < entries.Count; i++)
+            {
+                if (string.Equals(entries[i].Name, trimmed, System.StringComparison.OrdinalIgnoreCase))
+                {
+                    return entries[i];
+                }
+            }
+
+            return null;
+        }
+
         private void Awake()
         {
             if (registerOnAwake)
@@ -385,6 +411,14 @@ Idle modes (for [idle:mode]):
             service.SystemMessageContent = string.IsNullOrEmpty(originalSystemMessage)
                 ? prompt
                 : originalSystemMessage + "\n\n" + prompt;
+
+            // This overwrote everything that was appended after the original message, including the
+            // sitting-point list, so let the point library put its block back.
+            var pointLibrary = FindFirstObjectByType<AvatarPointLibrary>();
+            if (pointLibrary != null)
+            {
+                pointLibrary.RefreshSystemMessage();
+            }
         }
 
         /// <summary>Restores the system message this component replaced.</summary>

@@ -139,6 +139,15 @@ namespace ChatdollKit.Model
 
         private void LateUpdate()
         {
+            if (positionHeld)
+            {
+                // Humanoid clips carry RootT/RootQ curves. Even with applyRootMotion off the Animator
+                // still writes those curves onto the model transform, which quietly slides the avatar
+                // off the spot it was just placed on. LateUpdate runs after the animation update, so
+                // re-asserting the spot here is what actually sticks.
+                AvatarModel.transform.SetPositionAndRotation(heldPosition, heldRotation);
+            }
+
             // Move to avatar position (because this game object includes AudioSource)
             gameObject.transform.position = AvatarModel.transform.position;
         }
@@ -179,10 +188,68 @@ namespace ChatdollKit.Model
         }
 
         // True while a pose that should stay forever is the animation currently playing
-        private bool IsHoldingPose()
+        public bool IsHoldingPose()
         {
             return currentAnimation != null && currentAnimation.IsPose && currentAnimation.HoldSeconds <= 0f;
         }
+
+        /// <summary>
+        /// Hook for the sitting-point system (AvatarPointLibrary). Called by AnimatedSay with the body
+        /// of a [sit:"Name"] / [stand] tag before that frame's faces and animations run, so the avatar
+        /// is already in place when the clip starts. Null when no point library is in the scene.
+        /// </summary>
+        public Func<string, UniTask> PointChangeAsyncFunc { get; set; }
+
+        /// <summary>
+        /// Moves the character model to a place in the room. Root motion is switched off, so clips
+        /// animate in place and relocating the avatar means moving the model itself. ModelController's
+        /// own GameObject (which carries the AudioSource) follows via LateUpdate().
+        /// </summary>
+        public void TeleportTo(Vector3 position, Quaternion rotation)
+        {
+            if (AvatarModel == null)
+            {
+                return;
+            }
+
+            // Parent first, model second. LateUpdate() copies the model's world position back onto
+            // this GameObject, so if the model were moved first it would keep a non-zero local
+            // offset and LateUpdate() would add that offset to the model again every frame,
+            // sending the avatar flying. Setting the world position last leaves the offset at zero.
+            gameObject.transform.SetPositionAndRotation(position, rotation);
+            AvatarModel.transform.SetPositionAndRotation(position, rotation);
+        }
+
+        private bool positionHeld;
+        private Vector3 heldPosition;
+        private Quaternion heldRotation;
+
+        /// <summary>
+        /// Teleports the avatar and keeps pinning it to that spot every frame until
+        /// <see cref="ReleasePosition"/>. Used by the sitting-point system: a seated or lying clip
+        /// has root curves that would otherwise drag the avatar off the furniture it belongs to.
+        /// </summary>
+        public void TeleportToAndHold(Vector3 position, Quaternion rotation)
+        {
+            TeleportTo(position, rotation);
+            if (AvatarModel == null)
+            {
+                return;
+            }
+
+            positionHeld = true;
+            heldPosition = position;
+            heldRotation = rotation;
+        }
+
+        /// <summary>Stops pinning the avatar so free movement and root motion work again.</summary>
+        public void ReleasePosition()
+        {
+            positionHeld = false;
+        }
+
+        /// <summary>True while the avatar is pinned to a spot by the sitting-point system.</summary>
+        public bool IsPositionHeld => positionHeld;
 
         // Stop idling
         public void StopIdling()
@@ -327,6 +394,13 @@ namespace ChatdollKit.Model
                 if (token.IsCancellationRequested)
                 {
                     break;
+                }
+
+                // Sitting point, e.g. the avatar walks over to the couch before saying anything.
+                // Checked against null (not IsNullOrEmpty) because an empty body means "stand up".
+                if (animatedVoice.PointChange != null && PointChangeAsyncFunc != null)
+                {
+                    await PointChangeAsyncFunc(animatedVoice.PointChange);
                 }
 
                 // Idling mode, e.g. the avatar sits down and stays sitting for the rest of the chat
@@ -474,6 +548,15 @@ namespace ChatdollKit.Model
                     {
                         avreq.AddIdlingModeChange(mode);
                     }
+                }
+                else if (parsedText.StartsWith("[sit:") || parsedText.Equals("[stand]", System.StringComparison.OrdinalIgnoreCase))
+                {
+                    // [sit:"Couch left"] / [stand] - handled by the sitting point library. An empty
+                    // body means "get up", which is exactly what [stand] asks for.
+                    var body = parsedText.Equals("[stand]", System.StringComparison.OrdinalIgnoreCase)
+                        ? string.Empty
+                        : parsedText.Substring(5, parsedText.Length - 6).Trim();
+                    avreq.AddPointChange(body);
                 }
                 else if (parsedText.StartsWith("[pause:"))
                 {

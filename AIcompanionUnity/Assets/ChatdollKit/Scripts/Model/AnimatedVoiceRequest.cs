@@ -55,6 +55,16 @@ namespace ChatdollKit.Model
             AnimatedVoices.Last().IdlingModeChange = mode;
         }
 
+        // Sitting point to move to, from a [sit:"Name"] / [stand] tag. Empty string means "stand up".
+        public void AddPointChange(string pointName, bool asNewFrame = false)
+        {
+            if (asNewFrame || AnimatedVoices.Count == 0)
+            {
+                CreateNewFrame();
+            }
+            AnimatedVoices.Last().PointChange = pointName ?? string.Empty;
+        }
+
         public void AddFace(string name, float duration = 0.0f, string description = null, bool asNewFrame = false)
         {
             if (asNewFrame || AnimatedVoices.Count == 0)

@@ -159,6 +159,65 @@ to the sentence it is saying.
 **Tools > Code Happiness > Create Missing Animation Description Files** creates a stub `.txt` for
 every clip that does not have one, so you can fill them in.
 
+## Sitting points
+
+A *sitting point* is an empty GameObject in the room that the avatar can be told to go to and sit, lean
+or lie in. Each one carries a name, a description the model reads, and the short list of clips that
+actually look right at that spot - because a clip that puts a hand on the arm of a couch only works if
+the avatar is standing where that couch is.
+
+Put an `AvatarSittingPoint` on the empty. Two empties can share one piece of furniture: one for sitting
+upright, another further along for the laying clips.
+
+| Field | What it does |
+| --- | --- |
+| `Point Name` | the name the model writes inside `[sit:"..."]` |
+| `Description` | tells the model what the spot is, so it picks the right one |
+| `Kind` | `Sitting` / `Laying` / `Standing` / `Any` - only used for sorting and display |
+| `Animations` | the clips that work here, each with an optional note. Anything not listed is refused |
+| `Default Animation` | the clip played on arrival when the tag does not name one |
+| `Idle Mode` | idle set to switch to while on this spot, e.g. `Sitting` |
+| `Use Point Rotation` | off means the avatar keeps whatever rotation it had |
+
+`AvatarPointLibrary` (on the `AICompanion` GameObject) finds every spot in the scene, injects the list
+into the LLM system message between `<!-- avatar-sitting-points -->` markers, and does the moving.
+
+### Tags
+
+```
+[sit:"Couch left"] Now I am sitting on the couch.
+[stand] I am standing again.
+[sit:"Couch far end"][pose:"Female Laying Pose"] Time to lie down.
+```
+
+`[sit:"Name"]` teleports the avatar to the spot and plays the arrival clip; `[stand]` releases it back to
+standing idle. Names are matched case-insensitively and the quotes are optional, so a slightly different
+spelling from the model still lands. Playing a clip the spot does not list logs a warning and still plays
+it - the list is a strong suggestion to the model, not a hard gate.
+
+### The avatar is pinned while it is on a spot
+
+`Animator.applyRootMotion` is off, but the Animator still writes the humanoid `RootT`/`RootQ` curves onto
+the model transform, which quietly slides the avatar off the furniture a frame after a teleport. So
+`ModelController.TeleportToAndHold()` re-asserts the spot in `LateUpdate()` - after the animation update -
+for as long as `AvatarPointLibrary.CurrentPoint` is set, and `StandUpAsync()` calls `ReleasePosition()`.
+Anything else that wants to move the avatar should call `ReleasePosition()` first.
+
+### Placing one
+
+**Tools > Code Happiness > Place Sitting Point** is the authoring window. Pick the furniture, and the
+window parents the live avatar to the empty you are moving so you see exactly what it looks like. It lists
+every registered animation as a clickable row - click one and it plays on the avatar in place; click the
+checkmark on the row when that clip genuinely works at that spot and it is added to the spot's list. Tick
+the ones that fit, uncheck the ones that don't, and the spot's animation list is what the model is told.
+
+### Idle wandering
+
+While the companion has nothing to do, `AvatarPointLibrary` can move it between spots by itself. Turn it
+off with `Enable Idle Wandering`, and tune `Idle Seconds Before Wandering`, `Min Seconds Between Wanders`
+and `Stay Put Chance`. It never moves during a conversation, and never interrupts a pose the model asked
+for.
+
 ## After adding or removing clips
 
 Run the scan again. It reuses the existing AnimatorController, deletes the states it made for clips that
